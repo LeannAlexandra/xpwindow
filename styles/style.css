@@ -1,0 +1,167 @@
+html {
+    background-color: black;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+
+}
+
+.desktop {
+    height: 100vh;
+    width: 100vw;
+    background-image: url("../images/bg.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    /* background-clip: ; */
+    /* background-repeat: ; */
+    background-size: cover;
+
+}
+
+.taskbar {
+    height: 30px;
+    background: linear-gradient(to bottom,
+            rgb(49, 104, 213) 0%,
+            rgb(73, 147, 230) 10%,
+            rgb(34, 87, 213) 27%,
+            rgb(38, 99, 224) 86%,
+            rgb(25, 65, 165) 100%);
+
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+}
+
+.taskbaroptions {
+    color: grey;
+}
+
+.startbutton {
+    position: fixed;
+    width: 97px;
+    bottom: 0px;
+    height: 29px;
+
+    background:
+        radial-gradient(circle at center, transparent 90%, rgba(0, 0, 0, 0.2) 97%),
+        linear-gradient(165deg, rgba(255, 255, 255, 0.6), transparent 20%, rgba(0, 0, 0, 0.3)),
+        linear-gradient(110deg, transparent 87%, rgba(0, 0, 0, 0.3)), linear-gradient(to bottom,
+            rgb(58, 131, 60) 0%,
+            rgb(141, 191, 142) 10%,
+            rgb(74, 153, 75) 30%,
+            rgb(59, 172, 60) 83%,
+            rgb(38, 117, 68) 100%);
+
+
+    /* background: radial-gradient(circle at 10% 10%, transparent, white 3%, transparent 30%)); */
+
+    /* border-top-right-radius: 5px /15px; */
+    /* border-bottom-right-radius: 5px; */
+    border-radius: 7px /14px;
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+    /* border-right: 1px solid; */
+    border-bottom: 1px solid;
+    border-color: rgba(0, 0, 0, 0.5);
+    box-shadow: 3px 1px 6px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    position: relative;
+    height: 15px;
+    width: auto;
+    bottom: 46px;
+    left: 10px;
+    filter: drop-shadow(1px 1px 2px black);
+    /* filter: saturate(10); */
+    /* //box-shadow: 1px 1px 4px black; */
+    /* text-shadow: 1px 1px 4px black; */
+}
+
+.startbutton p {
+    user-select: none;
+    font-family: Arial, Helvetica, sans-serif;
+    letter-spacing: 0px;
+    position: relative;
+    color: white;
+    font-weight: 500;
+    left: 34px;
+    bottom: 11px;
+    font-size: 17px;
+    text-shadow: 1px 2px 4px black;
+}
+
+.clockWidget {
+    position: fixed;
+    color: white;
+    width: 129px;
+    height: 28px;
+    bottom: 0px;
+    right: 0px;
+    border-left: 1px solid rgba(0, 0, 0, 0.459);
+    box-shadow: 0px 2px 4px black;
+    background: linear-gradient(to bottom,
+            rgb(22, 173, 240) 0%,
+            rgb(25, 183, 241) 9%,
+            rgb(15, 143, 233) 90%,
+            rgb(25, 65, 165) 100%);
+
+}
+
+#clockDisplay {
+    font-weight: 100;
+    font-size: 11px;
+    position: absolute;
+    left: 69px;
+    /* bottom: 4px; */
+    top: -3px;
+}
+
+.clockWidget a {
+    text-decoration: none;
+    color: white;
+    font-weight: 900;
+    font-weight: 100;
+    font-size: 11px;
+    position: absolute;
+    /* left: 10px; */
+    /* bottom: 4px; */
+    top: 7px;
+}
+
+.systray1 {
+    left: 12px;
+}
+
+.systray2 {
+    left: 30px;
+}
+
+/*
+taskbar: the main blue
+
+
+
+
+active task: looks like a button 160x25 float mt-3 mb-2 outline 1px border radius 2px font 8px high (l=9 high) outline: use 30/30 lightest point (top left) 112,
+170,
+250 darkest point bottom 57,
+123,
+246
+
+START BUTTON: bold,
+italic allsmall t=12 high shaddow,
+offset 1 down 1 right 4px blur. color:
+
+take note 91:16 soft light fade.
+width: exactly 97 px
+rounding top-right 5px right top 13 rounding bottom-right 5 right-bottom 14 time wigit (3 Icons) 29px high (top one seems like normal task bar) fade top to bottom: 1/29 22,
+173,
+240
+
+*/

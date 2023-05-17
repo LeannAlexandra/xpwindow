@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg" xml:space="preserve"  version="1.1" style="shape-rendering:geometricPrecision; text-rendering:geometricPrecision; image-rendering:optimizeQuality; fill-rule:evenodd; clip-rule:evenodd"
+viewBox="0 0 560.51 494.59"
+ xmlns:xlink="http://www.w3.org/1999/xlink">
+ <defs>
+  <style type="text/css">
+   <![CDATA[
+    .fil0 {fill:url(#id0);fill-rule:nonzero}
+    .fil1 {fill:url(#id1);fill-rule:nonzero}
+    .fil3 {fill:url(#id2);fill-rule:nonzero}
+    .fil2 {fill:url(#id3);fill-rule:nonzero}
+   ]]>
+  </style>
+  <linearGradient id="id0" gradientUnits="userSpaceOnUse" x1="385.47" y1="179.71" x2="555.96" y2="219.64">
+   <stop offset="0" style="stop-opacity:1; stop-color:#81AB03"/>
+   <stop offset="0.301961" style="stop-opacity:1; stop-color:#C5EB65"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#83C400"/>
+  </linearGradient>
+  <linearGradient id="id1" gradientUnits="userSpaceOnUse" x1="46.22" y1="316.47" x2="293.11" y2="387.02">
+   <stop offset="0" style="stop-opacity:1; stop-color:#00B4F1"/>
+   <stop offset="0.160784" style="stop-opacity:1; stop-color:#A3E4FA"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#0080DB"/>
+  </linearGradient>
+  <linearGradient id="id2" gradientUnits="userSpaceOnUse" x1="317.89" y1="394.75" x2="508.35" y2="448.51">
+   <stop offset="0" style="stop-opacity:1; stop-color:#BF9200"/>
+   <stop offset="0.321569" style="stop-opacity:1; stop-color:#FADE6E"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#FFDD00"/>
+  </linearGradient>
+  <linearGradient id="id3" gradientUnits="userSpaceOnUse" x1="129.42" y1="92.05" x2="320.91" y2="146.58">
+   <stop offset="0" style="stop-opacity:1; stop-color:#FF6200"/>
+   <stop offset="0.0588235" style="stop-opacity:1; stop-color:#FF7B33"/>
+   <stop offset="0.168627" style="stop-opacity:1; stop-color:#FF9466"/>
+   <stop offset="0.470588" style="stop-opacity:1; stop-color:#F97C47"/>
+   <stop offset="1" style="stop-opacity:1; stop-color:#F54900"/>
+  </linearGradient>
+ </defs>
+
+ <g id="_2429005406976">
+   <path class="fil0" d="M560.51 67.76c-108.63,44.91 -160.87,19.67 -207.94,-12.02l-53.59 185.88c47.03,31.86 103.81,58.06 208.02,11.4l53.5 -185.26z"/>
+   <path class="fil1" d="M207.36 441.29c-47.18,-31.76 -98.47,-57.87 -207.36,-12.85l53.32 -186.24c108.91,-45.04 161.23,-19.55 208.37,12.4l-54.33 186.68 0 0.01z"/>
+   <path class="fil2" d="M270.75 221.57c-28.4,-19.13 -58.95,-36.98 -102.34,-37.31 -28.63,-0.22 -62.7,7.91 -105.96,25.8l53.61 -185.76c108.84,-45 161.11,-19.53 208.22,12.39l-53.53 184.88z"/>
+   <path class="fil3" d="M289.95 273.12c47.12,31.73 99.46,57 208.21,12.05l-53.6 185.14c-108.77,44.98 -161,19.51 -208.08,-12.41l53.47 -184.78z"/>
+  </g>
+
+</svg>
