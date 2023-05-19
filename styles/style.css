@@ -1,5 +1,35 @@
+:root {
+    --ui-scale: 1.5;
+
+    /* --var */
+    --clr-blue: linear-gradient(to bottom,
+            rgb(49, 104, 213) 0%,
+            rgb(73, 147, 230) 10%,
+            rgb(34, 87, 213) 27%,
+            rgb(38, 99, 224) 86%,
+            rgb(25, 65, 165) 100%);
+    --clr-green: radial-gradient(circle at center, transparent 90%, rgba(0, 0, 0, 0.2) 97%),
+        linear-gradient(165deg, rgba(255, 255, 255, 0.6), transparent 20%, rgba(0, 0, 0, 0.3)),
+        linear-gradient(110deg, transparent 87%, rgba(0, 0, 0, 0.3)),
+        linear-gradient(to bottom,
+            rgb(58, 131, 60) 0%,
+            rgb(141, 191, 142) 10%,
+            rgb(74, 153, 75) 30%,
+            rgb(59, 172, 60) 83%,
+            rgb(38, 117, 68) 100%);
+
+    --clr-cyan: linear-gradient(to bottom,
+            rgb(43, 187, 249) 0%,
+            rgb(108, 212, 250) 13%,
+            rgb(25, 183, 241) 29%,
+            rgb(15, 143, 233) 90%,
+            rgb(25, 65, 165) 100%);
+    --clr-loading: black;
+    --clr-b-grey: rgb(76, 76, 76);
+}
+
 html {
-    background-color: black;
+    background-color: var(--clr-loading);
     margin: 0;
     padding: 0;
     overflow: hidden;
@@ -18,8 +48,70 @@ body {
     /* display: none; */
 }
 
-.desktop {
+#progressbar {
+    /* DOES NOT RESPOND TO UI STYLE! */
+    margin-top: 30px;
+    /*  */
+    background-color: var(--clr-loading);
+    /* /border: 2px 2px red solid; */
+    border-color: var(--clr-b-grey);
+    border-style: solid;
+    border-width: 2px;
+    border-radius: 7px;
+    height: 23px;
+    width: 203px;
+    /* //background: linear-gradient(to bottom left, rgba(0, 0, 255, 0.218) 20%, rgba(0, 0, 139, 0.361) 50%); */
+}
 
+
+
+.progblock {
+    border-radius: 1px;
+    display: inline-block;
+    background: linear-gradient(187deg, rgb(108, 108, 187) 45%, darkblue 95%);
+    height: 17px;
+    width: 14px;
+    margin: 3px 0px;
+}
+
+.bf {
+    width: 15px;
+    border-top-left-radius: 3px;
+    border-bottom-left-radius: 3px;
+}
+
+.bl {
+    width: 15px;
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+}
+
+.leftalign {
+    text-align: left;
+    padding-left: 4px;
+}
+
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin: auto;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    margin: auto;
+    position: fixed;
+    transition: 500ms;
+}
+
+.loading img {
+    width: 200px;
+    height: auto;
+    margin: 0 auto;
+}
+
+.desktop {
     height: 100vh;
     width: 100vw;
     background-image: url("../images/bg.jpg");
@@ -28,7 +120,7 @@ body {
     /* background-clip: ; */
     /* background-repeat: ; */
     background-size: cover;
-    transition: 200ms;
+    /* transition: 200ms; */
 }
 
 .bluescreen {
@@ -50,14 +142,8 @@ body {
 }
 
 .taskbar {
-    height: 30px;
-    background: linear-gradient(to bottom,
-            rgb(49, 104, 213) 0%,
-            rgb(73, 147, 230) 10%,
-            rgb(34, 87, 213) 27%,
-            rgb(38, 99, 224) 86%,
-            rgb(25, 65, 165) 100%);
-
+    height: calc(var(--ui-scale)*30px);
+    background: var(--clr-blue);
     position: fixed;
     width: 100%;
     bottom: 0px;
@@ -69,26 +155,19 @@ body {
 
 .startbutton {
     position: fixed;
-    width: 97px;
+    width: calc(var(--ui-scale)*97px);
     bottom: 0px;
-    height: 29px;
+    height: inherit;
 
-    background:
-        radial-gradient(circle at center, transparent 90%, rgba(0, 0, 0, 0.2) 97%),
-        linear-gradient(165deg, rgba(255, 255, 255, 0.6), transparent 20%, rgba(0, 0, 0, 0.3)),
-        linear-gradient(110deg, transparent 87%, rgba(0, 0, 0, 0.3)), linear-gradient(to bottom,
-            rgb(58, 131, 60) 0%,
-            rgb(141, 191, 142) 10%,
-            rgb(74, 153, 75) 30%,
-            rgb(59, 172, 60) 83%,
-            rgb(38, 117, 68) 100%);
+    background: var(--clr-green);
+
 
 
     /* background: radial-gradient(circle at 10% 10%, transparent, white 3%, transparent 30%)); */
 
     /* border-top-right-radius: 5px /15px; */
     /* border-bottom-right-radius: 5px; */
-    border-radius: 7px /14px;
+    border-radius: calc(var(--ui-scale)*7px) /calc(var(--ui-scale)*14px);
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
     /* border-right: 1px solid; */
@@ -99,10 +178,10 @@ body {
 
 .logo {
     position: relative;
-    height: 15px;
+    height: 50%;
     width: auto;
-    bottom: 46px;
-    left: 10px;
+    bottom: 155%;
+    left: 20%;
     filter: drop-shadow(1px 1px 2px black);
     /* filter: saturate(10); */
     /* //box-shadow: 1px 1px 4px black; */
@@ -116,57 +195,53 @@ body {
     position: relative;
     color: white;
     font-weight: 500;
-    left: 34px;
-    bottom: 11px;
-    font-size: 17px;
+    left: 45%;
+    bottom: 40%;
+    font-size: calc(var(--ui-scale)*17px);
     text-shadow: 1px 2px 4px black;
 }
 
 .clockWidget {
     position: fixed;
     color: white;
-    width: 129px;
-    height: 28px;
+    width: calc(var(--ui-scale)*129px);
+    height: calc(var(--ui-scale)*30px);
     bottom: 0px;
     right: 0px;
     border-left: 1px solid rgba(0, 0, 0, 0.459);
     box-shadow: 0px 2px 4px black;
-    background: linear-gradient(to bottom,
-            rgb(22, 173, 240) 0%,
-            rgb(25, 183, 241) 9%,
-            rgb(15, 143, 233) 90%,
-            rgb(25, 65, 165) 100%);
-
+    background: var(--clr-cyan);
 }
 
 #clockDisplay {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-weight: 100;
-    font-size: 11px;
+    font-size: calc(var(--ui-scale)*11px);
     position: absolute;
-    left: 69px;
+    left: calc(var(--ui-scale)*78px);
     /* bottom: 4px; */
-    top: -3px;
+    top: calc(var(--ui-scale)*(-3px));
 }
 
 .clockWidget a {
     text-decoration: none;
     color: white;
     font-weight: 900;
-    font-weight: 100;
-    font-size: 11px;
+    /* font-weight: 100; */
+    font-size: calc(var(--ui-scale)*11px);
     position: absolute;
     /* left: 10px; */
     /* bottom: 4px; */
-    top: 7px;
+    top: calc(var(--ui-scale)*7px);
 }
 
 .systray {
     position: absolute;
-    width: 23px;
-    height: 23px;
-    border-radius: 5px;
+    width: calc(var(--ui-scale)*23px);
+    height: calc(var(--ui-scale)*23px);
+    border-radius: calc(var(--ui-scale)*5px);
     background-color: teal;
-    top: 3px;
+    top: calc(var(--ui-scale)*3px);
     text-align: center;
     margin: 0 auto;
 }
@@ -176,20 +251,21 @@ body {
 }
 
 .systray p {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 7px;
+    font-family: inherit;
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
+    font-size: calc(var(--ui-scale)*7px);
     /* bottom: 5px; */
 
 
 }
 
 .systray1 {
-    left: 4px;
+    left: calc(var(--ui-scale)*4px);
 
 }
 
 .systray2 {
-    left: 32px;
+    left: calc(var(--ui-scale)*32px);
 }
 
 /*

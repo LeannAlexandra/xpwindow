@@ -1,11 +1,35 @@
 const dev = true; //in development skip artificial delayed timing
+const waitTime = 100;
+
 // script (startup);
 let sysTrayCount = 0;
-preload();
+
+//input hooks:
+
+window.addEventListener('contextmenu', (event) => {
+    // alert("right click intercepted at  " + event.x + " " + event.y);
+    console.log(event);
+
+    createContextMenu(event.x, event.y);
+
+    event.preventDefault();
+})
 
 
 
 
+startup(); //moved to async to remove the possibility of NTH ui elements messing with functionality.
+
+
+async function startup() {
+
+    loadBar();
+    preload();
+    getUIScale();
+
+
+
+}
 // runClock();
 
 /*
@@ -31,20 +55,52 @@ preload();
 */
 
 
+function getUIScale() {
+    const styles = getComputedStyle(document.documentElement);
+    // console.log(parseFloat(styles.getPropertyValue('--ui-scale').trim()))
+    return parseFloat(styles.getPropertyValue('--ui-scale').trim());
+}
+function setUIScale() { }
 
-
+function createContextMenu() { }
 
 /////////////////////////////////// FUNCTIONS //////////////////////////////////
 
+async function loadBar() {
+    // console.log("loadingbar");
+    const initscreen = document.getElementById("init");
+    if (dev) {
+        initscreen.classList.add("hide");
+        return;
+    } let loader = document.getElementsByClassName("progblock");
+    for (let i = 0; i < loader.length; i++) {
+        const time = Math.floor(Math.random() * waitTime);
+        // console.log(loader[i]);
+        setTimeout(() => {
+            loader[i].classList.remove("hide"); //show each bar in its time
+            // console.log(loader[i].classList);
+            // console.log("  " + loader[i]);
+            if (i === loader.length - 1) {
+                //the last loop.
+                initscreen.classList.add("hide");
+
+
+                // const taskbar = document.getElementById("taskbar");
+                //taskbar.classList.remove("hide");
+            }
+        }, (waitTime * i + time));
+
+    }
+    //add callback on delay to remove the elements from the page.
+}
+
+//dont load during development (when the loadscreen is not hidden, shows the loading animation automatically)
 
 async function preload() {
     const desktop = document.getElementById("desktop");
     desktop.classList.remove("hide");
-
-
     const taskbar = document.createElement("div");
-
-    taskbar.innerHTML = taskBar("1");
+    taskbar.innerHTML = createTaskBar();
     taskbar.classList.add("hide");
     desktop.appendChild(taskbar);
     //below cannot run until taskbar has been created.
@@ -54,10 +110,10 @@ async function preload() {
     setTimeout(() => {
         // console.log(`, removing hide.`)
         taskbar.classList.remove("hide");
-    }, dev ? 0 : 2000);
+    }, dev ? 0 : 3000);
 }
 
-function taskBar(...args) {
+function createTaskBar(...args) {
     //args= systray icons-> start with none
 
     return `<div id="taskbar" class="unselectable taskbar"><div class= "startbutton" >

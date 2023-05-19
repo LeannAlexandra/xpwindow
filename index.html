@@ -11,16 +11,6 @@
 </head>
 
 <body>
-    <div class="overlay">
-        <!-- show user-guidance in this div. -->
-
-    </div>
-    <div id="desktop" class="desktop hide">
-
-    </div>
-
-
-
     <noscript>
         <div id="bsod" class="bluescreen">
             <p>
@@ -59,6 +49,42 @@
             </p>
         </div>
     </noscript>
+
+    <div class="overlay">
+        <!-- show user-guidance in this div. -->
+
+    </div>
+    <div class="loading " id="init">
+        <div class="centered">
+            <img src="images/winxp.png" alt="">
+            <div id="progressbar">
+                <div class="leftalign">
+                    <div class="progblock bf   hide"></div>
+                    <div class="progblock  hide"></div>
+                    <div class="progblock  hide"></div>
+                    <div class="progblock  hide "></div>
+                    <div class="progblock  hide"></div>
+                    <div class="progblock  hide"></div>
+                    <div class="progblock  hide  "></div>
+                    <div class="progblock  hide "></div>
+                    <div class="progblock  hide "></div>
+                    <div class="progblock  hide  "></div>
+                    <div class="progblock  hide bl "></div>
+
+                </div>
+                <div id="enableJStoLoad" class="">
+                    <p>enable javascript to load xp</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="desktop" class="desktop hide">
+        <!-- The true desktop experience. -->
+    </div>
+
+
+
+
     <script src="index.js"></script>
 
 </body>
