@@ -38,6 +38,7 @@ async function startup() {
     // remo
     // desktop.setAttribute("background-image", desktopBackground);
     const desktop = document.getElementById("desktop");
+    desktop.style.backgroundImage = `url("images/bg.jpg")`;
     document.getElementById("startup").classList.add("gone");
     document.getElementById("startupB").classList.add("gone");
     loadBar();
@@ -139,6 +140,7 @@ async function preload() {
 
     desktop.classList.remove("gone");
     desktop.classList.remove("hide");
+
     const startupSound = new Audio('sounds/startup.mp3'); // gives the time of loading screen to preload audio
     const taskbar = document.createElement("div");
     taskbar.innerHTML = createTaskBar();
