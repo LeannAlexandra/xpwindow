@@ -4,10 +4,13 @@ const waitTime = 100;
 // script (startup);
 let sysTrayCount = 0;
 
+
+
 const removePowerButton = document.getElementById("startupB");
 // console.log(removePowerButton);
 removePowerButton.addEventListener('click', startup);
 
+// const desktopBackground = new Image("../images/bg.jpg");
 
 if (on) {
     const removeh1 = document.getElementById("startup");
@@ -33,6 +36,8 @@ window.addEventListener('contextmenu', (event) => {
 async function startup() {
     // console.log("printrandom mumbo jumbo startup stuff.")
     // remo
+    // desktop.setAttribute("background-image", desktopBackground);
+    const desktop = document.getElementById("desktop");
     document.getElementById("startup").classList.add("gone");
     document.getElementById("startupB").classList.add("gone");
     loadBar();
@@ -131,10 +136,10 @@ async function gc(element) {
 //dont load during development (when the loadscreen is not hidden, shows the loading animation automatically)
 
 async function preload() {
-    const desktop = document.getElementById("desktop");
 
     desktop.classList.remove("gone");
     desktop.classList.remove("hide");
+    const startupSound = new Audio('sounds/startup.mp3'); // gives the time of loading screen to preload audio
     const taskbar = document.createElement("div");
     taskbar.innerHTML = createTaskBar();
     taskbar.classList.add("hide");
@@ -149,7 +154,7 @@ async function preload() {
     }, dev ? 0 : 3000);
     setTimeout(() => {
         //Audio =
-        const startupSound = new Audio('sounds/startup.mp3');
+
         if (startupSound)
             startupSound.play();
         //load and play audio
