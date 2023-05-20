@@ -1,11 +1,25 @@
-const dev = true; //in development skip artificial delayed timing
+let dev = false; //in development skip artificial delayed timing
+let on = false; //doesnt start in an on state/
 const waitTime = 100;
-
 // script (startup);
 let sysTrayCount = 0;
 
-//input hooks:
+const removePowerButton = document.getElementById("startupB");
+// console.log(removePowerButton);
+removePowerButton.addEventListener('click', startup);
 
+
+if (on) {
+    const removeh1 = document.getElementById("startup");
+    // const removePowerButton = document.getElementById("startupB");
+    removeh1.classList.add("gone");
+    removePowerButton.classList.add("gone");
+    console.log("pc is on ... awaking from sleep");
+    dev = true;
+    startup();
+}
+
+//input hooks:
 window.addEventListener('contextmenu', (event) => {
     // alert("right click intercepted at  " + event.x + " " + event.y);
     console.log(event);
@@ -16,15 +30,14 @@ window.addEventListener('contextmenu', (event) => {
 })
 
 
-
-
-startup(); //moved to async to remove the possibility of NTH ui elements messing with functionality.
-
-
 async function startup() {
-
+    // console.log("printrandom mumbo jumbo startup stuff.")
+    // remo
+    document.getElementById("startup").classList.add("gone");
+    document.getElementById("startupB").classList.add("gone");
     loadBar();
     preload();
+    on = true;
     getUIScale();
 
 
@@ -62,13 +75,20 @@ function getUIScale() {
 }
 function setUIScale() { }
 
-function createContextMenu() { }
+function createContextMenu(x, y) {
+
+
+
+}
 
 /////////////////////////////////// FUNCTIONS //////////////////////////////////
 
 async function loadBar() {
     // console.log("loadingbar");
     const initscreen = document.getElementById("init");
+    // initscreen.
+    document.getElementById("loading-img").classList.remove("gone")
+    document.getElementById("progressbar").classList.remove("gone");
     if (dev) {
         initscreen.classList.add("hide");
         return;
@@ -92,12 +112,28 @@ async function loadBar() {
 
     }
     //add callback on delay to remove the elements from the page.
+    gc(initscreen);
 }
 
+async function gc(element) {
+    if (dev)
+        console.log("MARKED FOR DELETION: " + element);
+
+    setTimeout(() => {
+        if (dev)
+            console.log("GARBAGE: " + element);
+
+        element.remove();
+        if (dev)
+            console.log("GARBAGE COLLECTED");
+    }, waitTime * 100)
+}
 //dont load during development (when the loadscreen is not hidden, shows the loading animation automatically)
 
 async function preload() {
     const desktop = document.getElementById("desktop");
+
+    desktop.classList.remove("gone");
     desktop.classList.remove("hide");
     const taskbar = document.createElement("div");
     taskbar.innerHTML = createTaskBar();
@@ -111,6 +147,13 @@ async function preload() {
         // console.log(`, removing hide.`)
         taskbar.classList.remove("hide");
     }, dev ? 0 : 3000);
+    setTimeout(() => {
+        //Audio =
+        const startupSound = new Audio('sounds/startup.mp3');
+        if (startupSound)
+            startupSound.play();
+        //load and play audio
+    }, 1000);
 }
 
 function createTaskBar(...args) {

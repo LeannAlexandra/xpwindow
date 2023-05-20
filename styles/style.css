@@ -17,6 +17,15 @@
             rgb(74, 153, 75) 30%,
             rgb(59, 172, 60) 83%,
             rgb(38, 117, 68) 100%);
+    --clr-red: radial-gradient(circle at center, transparent 90%, rgba(0, 0, 0, 0.2) 97%),
+        linear-gradient(165deg, rgba(255, 255, 255, 0.6), transparent 20%, rgba(0, 0, 0, 0.3)),
+        linear-gradient(110deg, transparent 87%, rgba(0, 0, 0, 0.3)),
+        linear-gradient(to bottom,
+            rgb(58, 131, 60) 0%,
+            rgb(141, 191, 142) 10%,
+            rgb(74, 153, 75) 30%,
+            rgb(59, 172, 60) 83%,
+            rgb(38, 117, 68) 100%);
 
     --clr-cyan: linear-gradient(to bottom,
             rgb(43, 187, 249) 0%,
@@ -26,6 +35,73 @@
             rgb(25, 65, 165) 100%);
     --clr-loading: black;
     --clr-b-grey: rgb(76, 76, 76);
+}
+
+#startup {
+    font-family: Tahoma, Verdana, Geneva, Tahoma, sans-serif;
+    font-weight: 400;
+    color: grey;
+}
+
+.overlay {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+
+}
+
+.darken {
+    width: inherit;
+    height: inherit;
+    background-color: black;
+    opacity: 0.5;
+    position: fixed;
+    /* z-index: -5; */
+}
+
+.xpbutton {
+    border-radius: 12%;
+    margin: 10% auto;
+    z-index: 2;
+}
+
+.gone {
+    display: none;
+}
+
+.square {
+    height: 60px;
+    width: 60px;
+    border-style: solid;
+    border-color: grey;
+    /* border-width: 7px; */
+}
+
+.circle {
+    background: radial-gradient(circle at center, transparent 45%, white 45%, white 55%, transparent 55%);
+    height: 100%;
+    width: 100%;
+    margin: auto auto;
+    border-radius: 100%;
+}
+
+.vbar {
+    background: linear-gradient(to bottom, transparent 30%, white 30%, white 70%, transparent 70%);
+    height: 100%;
+    width: 7%;
+    margin: auto auto;
+    /* border-radius: 10%; */
+}
+
+
+.power-on {
+    background: var(--clr-green);
+    filter: saturate(0);
+}
+
+.power-on:hover {
+
+    filter: saturate(4);
 }
 
 html {

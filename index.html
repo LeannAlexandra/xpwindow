@@ -25,7 +25,7 @@
                 screen appears again, follow these steps:
                 <br><br>
                 Ditch Internet Explorer, it's not the 90's. Check that your computer and all the neccesary
-                peripherals 
+                peripherals
                 are
                 pluged in and your hardware or software is
                 properly installed. If this is a new installation, ask your hardware or software manufacturer for
@@ -50,14 +50,17 @@
         </div>
     </noscript>
 
-    <div class="overlay">
-        <!-- show user-guidance in this div. -->
 
-    </div>
-    <div class="loading " id="init">
+    <div class="loading" id="init">
         <div class="centered">
-            <img src="images/winxp.png" alt="">
-            <div id="progressbar">
+            <h1 id="startup">Power on your machine</h1>
+            <div id="startupB" onclick="startup" class="xpbutton square power-on">
+                <div class="circle">
+                    <div class="vbar"></div>
+                </div>
+            </div>
+            <img id="loading-img" src="images/winxp.png" alt="" class="gone">
+            <div id="progressbar" class="gone">
                 <div class="leftalign">
                     <div class="progblock bf   hide"></div>
                     <div class="progblock  hide"></div>
@@ -78,13 +81,17 @@
             </div>
         </div>
     </div>
-    <div id="desktop" class="desktop hide">
+
+
+    <div id="desktop" class="desktop gone hide">
         <!-- The true desktop experience. -->
     </div>
 
+    <!-- <div class="overlay gone">
+         <div class="darken "></div> -->
+    <!-- show user-guidance in this div. -->
 
-
-
+    <!-- </div> -->
     <script src="index.js"></script>
 
 </body>
