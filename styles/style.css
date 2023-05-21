@@ -1,5 +1,5 @@
 :root {
-    --ui-scale: 1.5;
+    --ui-scale: 1.0;
 
     /* --var */
     --clr-blue: linear-gradient(to bottom,
@@ -38,7 +38,9 @@
 }
 
 #startup {
-    font-family: Tahoma, Verdana, Geneva, Tahoma, sans-serif;
+    font-family: 'Open Sans', sans-serif;
+    /* font-family: Tahoma, Verdana, Geneva, Tahoma, sans-serif; */
+
     font-weight: 400;
     color: grey;
 }
@@ -95,12 +97,13 @@
 
 
 .power-on {
-    background: var(--clr-green);
-    filter: saturate(0);
+    background: linear-gradient(94deg, transparent 0%, rgba(255, 255, 255, 0.3) 5%, transparent 13%, transparent 80%, rgba(0, 0, 0, 0.38) 100%),
+        linear-gradient(179deg, transparent 0%, rgba(255, 255, 255, 0.4) 5%, transparent 13%, transparent 90%, rgba(0, 0, 0, 0.4) 100%), rgb(59, 172, 60);
+    filter: saturate(0.8);
 }
 
 .power-on:hover {
-
+    box-shadow: 0 0 18px rgb(0, 255, 0);
     filter: saturate(4);
 }
 
@@ -205,7 +208,8 @@ body {
     height: 100vh;
     background-color: rgb(0, 0, 170);
     color: white;
-    font-family: 'Lucida Console', 'Courier New', Courier, monospace;
+    /* font-family: 'Lucida Console', 'Courier New', Courier, monospace; */
+    font-family: 'Varela', sans-serif;
     margin: 0 auto;
 }
 
@@ -266,7 +270,8 @@ body {
 
 .startbutton p {
     user-select: none;
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: 'Arimo', sans-serif;
+    /* font-family: Arial, Helvetica, sans-serif; */
     letter-spacing: 0px;
     position: relative;
     color: white;
@@ -290,7 +295,8 @@ body {
 }
 
 #clockDisplay {
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
+    font-family: 'Varela', sans-serif;
     font-weight: 100;
     font-size: calc(var(--ui-scale)*11px);
     position: absolute;
