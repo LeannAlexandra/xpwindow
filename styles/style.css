@@ -1,7 +1,5 @@
 :root {
-    --ui-scale: 1.0;
-
-    /* --var */
+    --ui-scale: 1.5;
     --clr-blue: linear-gradient(to bottom,
             rgb(49, 104, 213) 0%,
             rgb(73, 147, 230) 10%,
@@ -39,8 +37,6 @@
 
 #startup {
     font-family: 'Open Sans', sans-serif;
-    /* font-family: Tahoma, Verdana, Geneva, Tahoma, sans-serif; */
-
     font-weight: 400;
     color: grey;
 }
@@ -49,7 +45,6 @@
     position: fixed;
     width: 100vw;
     height: 100vh;
-
 }
 
 .darken {
@@ -58,7 +53,6 @@
     background-color: black;
     opacity: 0.5;
     position: fixed;
-    /* z-index: -5; */
 }
 
 .xpbutton {
@@ -76,7 +70,6 @@
     width: 60px;
     border-style: solid;
     border-color: grey;
-    /* border-width: 7px; */
 }
 
 .circle {
@@ -92,7 +85,6 @@
     height: 100%;
     width: 7%;
     margin: auto auto;
-    /* border-radius: 10%; */
 }
 
 
@@ -117,32 +109,22 @@ html {
 body {
     margin: 0;
     padding: 0;
-
 }
 
 .hide {
-    /* //transform: scale(0.98); */
     opacity: 0;
-    /* visibility: hidden; */
-    /* display: none; */
 }
 
 #progressbar {
-    /* DOES NOT RESPOND TO UI STYLE! */
     margin-top: 30px;
-    /*  */
     background-color: var(--clr-loading);
-    /* /border: 2px 2px red solid; */
     border-color: var(--clr-b-grey);
     border-style: solid;
     border-width: 2px;
     border-radius: 7px;
     height: 23px;
     width: 203px;
-    /* //background: linear-gradient(to bottom left, rgba(0, 0, 255, 0.218) 20%, rgba(0, 0, 139, 0.361) 50%); */
 }
-
-
 
 .progblock {
     border-radius: 1px;
@@ -193,13 +175,9 @@ body {
 .desktop {
     height: 100vh;
     width: 100vw;
-    /* background-image: url("/images/bg.jpg"); */
     background-repeat: no-repeat;
     background-position: center;
-    /* background-clip: ; */
-    /* background-repeat: ; */
     background-size: cover;
-    /* transition: 200ms; */
 }
 
 .bluescreen {
@@ -208,13 +186,11 @@ body {
     height: 100vh;
     background-color: rgb(0, 0, 170);
     color: white;
-    /* font-family: 'Lucida Console', 'Courier New', Courier, monospace; */
     font-family: 'Varela', sans-serif;
     margin: 0 auto;
 }
 
 .bluescreen p {
-    /* position: f?ixed; */
     max-width: 80%;
     margin: 40px auto;
     font-size: 25px;
@@ -238,20 +214,11 @@ body {
     width: calc(var(--ui-scale)*97px);
     bottom: 0px;
     height: inherit;
-
     background: var(--clr-green);
-
-
-
-    /* background: radial-gradient(circle at 10% 10%, transparent, white 3%, transparent 30%)); */
-
-    /* border-top-right-radius: 5px /15px; */
-    /* border-bottom-right-radius: 5px; */
     border-radius: calc(var(--ui-scale)*7px) /calc(var(--ui-scale)*14px);
     border-top-left-radius: 0px;
     border-bottom-left-radius: 0px;
-    /* border-right: 1px solid; */
-    border-bottom: 1px solid;
+    /* b    order-bottom: 1px solid; */
     border-color: rgba(0, 0, 0, 0.5);
     box-shadow: 3px 1px 6px rgba(0, 0, 0, 0.5);
 }
@@ -263,15 +230,11 @@ body {
     bottom: 155%;
     left: 20%;
     filter: drop-shadow(1px 1px 2px black);
-    /* filter: saturate(10); */
-    /* //box-shadow: 1px 1px 4px black; */
-    /* text-shadow: 1px 1px 4px black; */
 }
 
 .startbutton p {
     user-select: none;
     font-family: 'Arimo', sans-serif;
-    /* font-family: Arial, Helvetica, sans-serif; */
     letter-spacing: 0px;
     position: relative;
     color: white;
@@ -295,25 +258,37 @@ body {
 }
 
 #clockDisplay {
-    /* font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; */
-    font-family: 'Varela', sans-serif;
-    font-weight: 100;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 400;
     font-size: calc(var(--ui-scale)*11px);
     position: absolute;
     left: calc(var(--ui-scale)*78px);
-    /* bottom: 4px; */
     top: calc(var(--ui-scale)*(-3px));
 }
+
+.startmenu {
+    /* background-color: rgb(255, 255, 255); */
+    border-width: 1px;
+    border-color: rgb(0, 0, 89);
+    border-style: solid;
+    border-radius: 15px 15px 15px 0;
+    width: calc(var(--ui-scale)*300px);
+    height: calc(var(--ui-scale)*400px);
+    position: absolute;
+    left: 1px;
+    bottom: calc(var(--ui-scale)*30px);
+    background: rgb(34, 87, 213);
+    box-shadow: 1px -1px 9px rgb(0, 0, 87);
+    transition: 200ms;
+}
+
 
 .clockWidget a {
     text-decoration: none;
     color: white;
-    font-weight: 900;
-    /* font-weight: 100; */
+    font-weight: 400;
     font-size: calc(var(--ui-scale)*11px);
     position: absolute;
-    /* left: 10px; */
-    /* bottom: 4px; */
     top: calc(var(--ui-scale)*7px);
 }
 
@@ -334,11 +309,7 @@ body {
 
 .systray p {
     font-family: inherit;
-    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
     font-size: calc(var(--ui-scale)*7px);
-    /* bottom: 5px; */
-
-
 }
 
 .systray1 {
@@ -349,27 +320,3 @@ body {
 .systray2 {
     left: calc(var(--ui-scale)*32px);
 }
-
-/*
-taskbar: the main blue
-
-
-
-
-active task: looks like a button 160x25 float mt-3 mb-2 outline 1px border radius 2px font 8px high (l=9 high) outline: use 30/30 lightest point (top left) 112,
-170,
-250 darkest point bottom 57,
-123,
-246
-
-START BUTTON: bold,
-italic allsmall t=12 high shaddow,
-offset 1 down 1 right 4px blur. color:
-
-take note 91:16 soft light fade.
-width: exactly 97 px
-rounding top-right 5px right top 13 rounding bottom-right 5 right-bottom 14 time wigit (3 Icons) 29px high (top one seems like normal task bar) fade top to bottom: 1/29 22,
-173,
-240
-
-*/

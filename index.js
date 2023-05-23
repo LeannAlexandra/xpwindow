@@ -1,20 +1,13 @@
-let dev = false; //in development skip artificial delayed timing
+let dev = true; //in development skip artificial delayed timing
 let on = false; //doesnt start in an on state/
 const waitTime = 100;
-// script (startup);
-let sysTrayCount = 0;
-
-
+// let sysTrayCount = 0;
 
 const removePowerButton = document.getElementById("startupB");
-// console.log(removePowerButton);
 removePowerButton.addEventListener('click', startup);
 
-// const desktopBackground = new Image("../images/bg.jpg");
-
-if (on) {
+if (dev || on) {
     const removeh1 = document.getElementById("startup");
-    // const removePowerButton = document.getElementById("startupB");
     removeh1.classList.add("gone");
     removePowerButton.classList.add("gone");
     console.log("pc is on ... awaking from sleep");
@@ -22,38 +15,29 @@ if (on) {
     startup();
 }
 
-//input hooks:
 window.addEventListener('contextmenu', (event) => {
-    // alert("right click intercepted at  " + event.x + " " + event.y);
-    console.log(event);
-
-    createContextMenu(event.x, event.y);
-
+    if (on) {
+        createContextMenu(event.x, event.y);
+    }
     event.preventDefault();
 })
 
-
 async function startup() {
-    // console.log("printrandom mumbo jumbo startup stuff.")
-    // remo
-    // desktop.setAttribute("background-image", desktopBackground);
     const desktop = document.getElementById("desktop");
     desktop.style.backgroundImage = `url("images/bg.jpg")`;
     document.getElementById("startup").classList.add("gone");
     document.getElementById("startupB").classList.add("gone");
     loadBar();
     preload();
-    on = true;
-    getUIScale();
-
-
+    // on = true;
+    getUIScale(); // used to set ui scale in rightclick -> display properties * value between 1 and 3 -> but 1.5 is closest to original.* (30px, but translates better to 45px on modern display)
 
 }
-// runClock();
+
 
 /*
-///TODO:
-    1. Start Menu
+TODO:
+    1. start menu
     1.1: window.ddl & user32.dll
 
     2. Internet Explorer
@@ -62,14 +46,17 @@ async function startup() {
 
     3. Desktop Icons, Grid, drag&drop
 
+    4. Event menu (rightclick)
+
+    5. Error Msg & error Sound.
+
+    6. "this version of windows is not genuine, (gives a popup hint on hover)"
 
     xth: ms paint
     xth+1: minesweeper
     xth+2: solitaire
 
-
-
-
+    doom 3d?
 
 */
 
@@ -141,7 +128,9 @@ async function preload() {
     desktop.classList.remove("gone");
     desktop.classList.remove("hide");
 
-    const startupSound = new Audio('sounds/startup.mp3'); // gives the time of loading screen to preload audio
+    let startupSound;
+    if (!on && !dev)
+        startupSound = new Audio('sounds/startup.mp3'); // gives the time of loading screen to preload audio
     const taskbar = document.createElement("div");
     taskbar.innerHTML = createTaskBar();
     taskbar.classList.add("hide");
@@ -157,16 +146,24 @@ async function preload() {
     setTimeout(() => {
         //Audio =
 
-        if (startupSound)
+        if (!on && startupSound)
             startupSound.play();
+        on = true;
+        //created start button in createTaskBar() method// (refactor -> more smaller components. )
+        document.getElementById("startbutton");
+        startbutton.addEventListener('click', toggleStartMenu);
         //load and play audio
     }, 1000);
 }
+function toggleStartMenu() {
+    //show if hidden, hides if shown.
+    document.getElementById("startmenu").classList.toggle("hide");
 
+}
 function createTaskBar(...args) {
     //args= systray icons-> start with none
 
-    return `<div id="taskbar" class="unselectable taskbar"><div class= "startbutton" >
+    return `<div id="taskbar" class="unselectable taskbar"><div id="startbutton" class="startbutton" >
         <p><em><strong>start</strong></em></p><img class="logo" src="images/logo.svg" alt="" srcset="">
     </div><div class="clockWidget"><p id="clockDisplay" class="clock">20:00</p><div class="systray1 systray"><p>1</p></div><div class="systray2 systray"><p>2</p></div></div ></div > `;
 }
