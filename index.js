@@ -1,4 +1,4 @@
-let dev = true; //in development skip artificial delayed timing
+let dev = false; //in development skip artificial delayed timing
 let on = false; //doesnt start in an on state/
 const waitTime = 100;
 // let sysTrayCount = 0;
