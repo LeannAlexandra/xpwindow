@@ -1,0 +1,50 @@
+.bomb {
+    background-color: darkred;
+}
+
+.grid {
+    padding-top: 3%;
+    height: 418px;
+    width: 420px;
+    margin: 0 auto;
+}
+
+.tile {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    /* border-style: solid;
+    border-width: 1px;
+    border-color: black; */
+    /* border-radius: 3px; */
+    /* background-color: rgb(255, 0, 0); */
+    /* background-color: blue; */
+    background:
+        linear-gradient(to bottom right, rgb(255, 255, 255) 50%, rgb(128, 128, 128) 50%);
+}
+
+.tiletop {
+    margin: 4px;
+    height: 32px;
+    width: 32px;
+    background: rgb(192, 192, 192);
+}
+
+.tile:hover {
+    background:
+        linear-gradient(to bottom right, rgb(255, 255, 255) 50%, rgb(107, 107, 107) 50%);
+    border-color: rgb(62, 62, 150);
+}
+
+.tile p {
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+
+.row {
+    width: inherit;
+    height: 40px;
+    /* background: black; */
+    text-align: center;
+}

@@ -33,6 +33,8 @@
             rgb(25, 65, 165) 100%);
     --clr-loading: black;
     --clr-b-grey: rgb(76, 76, 76);
+    --clr-button: linear-gradient(to bottom right, rgba(255, 255, 255, 0.4) 13%, transparent 80%, black), linear-gradient(to bottom, transparent 0%, rgba(255, 255, 255, 0.6) 5%, transparent 19%, transparent 87%, rgba(0, 0, 0, 0.5)),
+        linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.4) 5%, transparent 19%, transparent 87%, rgba(0, 0, 0, 0.5));
 }
 
 #startup {

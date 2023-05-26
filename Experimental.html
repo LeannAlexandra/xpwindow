@@ -13,52 +13,34 @@
     <title>XP EXPERIMENTAL
     </title>
     <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/window.css">
+    <link rel="stylesheet" href="styles/mine.css">
 </head>
 
 <body>
-    <div id="bsod" class="bluescreen gone">
-        <p>
-
-            A problem has been detected and XP Window has been shut down to prevent damage to my ego.
-            <br><br>
-            JAVASCRIPT_IS_NOT_ENABLED
-            <br><br>
-            If this is the first time you've seen this error screen, restart this page with javascript enabled.
-            If
-            this
-            screen appears again, follow these steps:
-            <br><br>
-            Ditch Internet Explorer, it's not the 90's. Check that your computer and all the neccesary
-            peripherals
-            are
-            pluged in and your hardware or software is
-            properly installed. If this is a new installation, ask your hardware or software manufacturer for
-            any XP
-            Window updates you might need.
-            <br><br>
-            If problems continue, Disable or remove any newly insalled hardware or software. Disable BIOS memory
-            options
-            such as caching or shadowing. If you need to use Safe Mode to remove or disable components, restart
-            your
-            computer, press F8 to select Advanced Startup Options, and then select Safe Mode.
-            <br><br><br>
-            Technical Information:
-            <br><br>
-            *** STOP: 0x00000000 (0x00000000, 0x00000000,0x00000000,0x00000000)
-            <br><br>
-            Or you can just enable JavaScript in your browser.
-            <br><br>
-            Lorem ipsum est pro pigris hominibus, qui carent imaginatione et foecunditate ad scribenda sua
-            contenta.
-        </p>
-    </div>
-    <div class="xpbutton square power-on gone">
-        <div class="circle">
-            <div class="vbar"></div>
+    <div class="window">
+        <div class="top-bar">
+            <div class="toolbar minimize"></div>
+            <div class="toolbar maximize  disabled-toolbar-button"></div>
+            <div class="toolbar exit"></div>
         </div>
+        <div class="menu-bar">
+            <a class="menu-bar-item">Edit</a>
+            <a class="menu-bar-item">View</a>
+            <a class="menu-bar-item">File</a>
+        </div>
+        <div class="window-content">
+            <div class="mineexe" id="mineexe"></div>
+
+
+        </div>
+        <div class="bottom-bar">
+
+        </div>
+
     </div>
 
-
+    <script src="apps/minesweeper.js"></script>
 </body>
 
 </html>
