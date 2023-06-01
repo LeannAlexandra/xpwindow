@@ -3,16 +3,16 @@
 }
 
 .grid {
-    padding-top: 3%;
-    height: 418px;
-    width: 420px;
+    /* padding-top: 3%; */
+    height: fit-content;
+    width: fit-content;
     margin: 0 auto;
 }
 
 .tile {
     display: inline-block;
-    width: 40px;
-    height: 40px;
+    width: 25px;
+    height: 25px;
     /* border-style: solid;
     border-width: 1px;
     border-color: black; */
@@ -24,17 +24,24 @@
 }
 
 .tiletop {
-    margin: 4px;
-    height: 32px;
-    width: 32px;
+    margin: 3px;
+    height: 19px;
+    width: 19px;
     background: rgb(192, 192, 192);
 }
 
+
 .tile:hover {
     background:
-        linear-gradient(to bottom right, rgb(255, 255, 255) 50%, rgb(107, 107, 107) 50%);
-    border-color: rgb(62, 62, 150);
+        linear-gradient(to top left, rgba(255, 255, 255, .3) 50%, rgba(128, 128, 128, .3) 50%);
+/*     
+        linear-gradient(to bottom right, rgb(255, 255, 255) 50%, rgb(107, 107, 107) 50%); */
+/* //    border-color: rgb(62, 62, 150); */
 }
+/* .tiletop:hover{
+    background-color: rgb(128, 128, 128);
+} */
+
 
 .tile p {
     margin: 0;
@@ -44,7 +51,12 @@
 
 .row {
     width: inherit;
-    height: 40px;
+    height: 25px;
     /* background: black; */
     text-align: center;
+}
+.mineexe {
+    /* background-color: grey; */
+    height: fit-content;
+    width: fit-content;
 }

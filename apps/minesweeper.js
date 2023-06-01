@@ -2,9 +2,21 @@
 let playing = false;
 
 const difficultySettings = {
-    easy: 10,
-    medium: 40,
-    hard: 99
+    easy: {
+        mines: 10,
+        width: 10,
+        height: 10
+    },
+    medium: {
+        mines: 40,
+        width: 16,
+        height: 16
+    },
+    hard: {
+        mines: 99,
+        width: 30,
+        height: 16
+    }
 };
 
 const game = document.getElementById("mineexe");
@@ -12,6 +24,18 @@ createGrid(difficultySettings.easy);
 
 // if (!playing)
 //     newGame(difficultySettings.easy);
+
+
+
+
+
+
+
+
+
+
+
+
 
 function newGame(size) {
     playing = true;
@@ -61,16 +85,22 @@ function newGame(size) {
     console.log(grid);
     printGrid(grid, size);
 }
-function createGrid(size) {
+
+
+
+function createGrid(ds) {
+    const bombs=ds.mines;
+    const gridWidth=ds.width;
+    const gridHeight=ds.height;
     const grid = document.createElement("div");
     grid.classList.add("grid");
     // grid.setAttribute("height", "400px");
-    for (let rowNum = 0; rowNum < size; rowNum++) {
+    for (let rowNum = 0; rowNum < gridHeight; rowNum++) {
         const row = document.createElement("div");
         row.classList.add("row");
         row.classList.add(`row${rowNum + 1}`);
 
-        for (let i = 0; i < size; i++) {
+        for (let i = 0; i < gridWidth; i++) {
             const tile = document.createElement("div");
             tile.classList.add("tile")
             const tiletop = document.createElement("div");
@@ -85,6 +115,7 @@ function createGrid(size) {
     }
     game.appendChild(grid);
 }
+
 
 function printGrid(grid, size = difficultySettings.easy) {
     for (let y = 0; y < size + 1; y++) {
