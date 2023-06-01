@@ -1,6 +1,6 @@
 // alert("it works");
 let playing = false;
-
+const fileMenu=["New Game: Easy","New Game: Medium", "NewGame: Hard","Exit"]
 const difficultySettings = {
     easy: {
         mines: 10,
@@ -22,6 +22,43 @@ const difficultySettings = {
 const game = document.getElementById("mineexe");
 createGrid(difficultySettings.easy);
 
+function handleClick (event){
+    const del = document.getElementById("grid");
+    del.remove();
+    let gd=difficultySettings.easy;
+    
+    if(event==='medium')
+        gd=difficultySettings.medium;
+    else if(event==='hard')
+        gd=difficultySettings.hard;
+    
+    // console.log("clicked");
+    // console.log(event);
+    // console.log(event.value);
+   
+    createGrid(gd);
+    
+}
+function showFileContextMenu(pos, name){
+    //hide all menus
+    const menus =document.getElementsByClassName("context-menu");
+    if(menus)
+    for (menu of menus){
+        menu.remove();
+    }
+
+    const newMenu=document.createElement("div");
+    newMenu.classList.add("context-menu");
+    for(option of fileMenu){
+
+        const opt= document.createElement('a');
+        opt.innerHTML=option;
+        opt.addEventListener('click', ()=>{handleClick(option)})
+        newMenu.appendChild(opt);
+    }
+
+}
+
 // if (!playing)
 //     newGame(difficultySettings.easy);
 
@@ -36,7 +73,7 @@ createGrid(difficultySettings.easy);
 
 
 
-
+/* 
 function newGame(size) {
     playing = true;
     const grid = [];
@@ -84,7 +121,7 @@ function newGame(size) {
     }
     console.log(grid);
     printGrid(grid, size);
-}
+} */
 
 
 
@@ -94,6 +131,7 @@ function createGrid(ds) {
     const gridHeight=ds.height;
     const grid = document.createElement("div");
     grid.classList.add("grid");
+    grid.id="grid";
     // grid.setAttribute("height", "400px");
     for (let rowNum = 0; rowNum < gridHeight; rowNum++) {
         const row = document.createElement("div");
@@ -117,7 +155,7 @@ function createGrid(ds) {
 }
 
 
-function printGrid(grid, size = difficultySettings.easy) {
+/* function printGrid(grid, size = difficultySettings.easy) {
     for (let y = 0; y < size + 1; y++) {
         // const row
         let row = grid[y];
@@ -130,4 +168,4 @@ function printGrid(grid, size = difficultySettings.easy) {
             });
         console.log(line);
     }
-}
+} */
