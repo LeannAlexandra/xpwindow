@@ -5,17 +5,20 @@ const difficultySettings = {
     easy: {
         mines: 10,
         width: 10,
-        height: 10
+        height: 10,
+        spacer: 69
     },
     medium: {
         mines: 40,
         width: 16,
-        height: 16
+        height: 16,
+        spacer: 225
     },
     hard: {
         mines: 99,
         width: 30,
-        height: 16
+        height: 16,
+        spacer: 580
     }
 };
 let gameblocks=difficultySettings.easy.height*difficultySettings.easy.width; //in the easy game - there are 100 tiles. 
@@ -39,6 +42,7 @@ function handleClick (event){
     
     createGrid(gd);
     renderGrid(gd.width,gd.height);
+    
     document.getElementById("context-menu").remove();
 }
 function showFileContextMenu(pos, name){
@@ -147,7 +151,8 @@ function createGrid(ds) {
     gameblocks=ds.height*ds.width; //in the easy game - there are 100 tiles. 
  gamebombs=ds.mines;
  gameGrid =[];
-
+ const space =document.getElementById("spacer");
+    space.setAttribute("style",`width: ${ds.spacer}px;`);
     const bombs=ds.mines;
     const gridWidth=ds.width;
     const gridHeight=ds.height;
@@ -203,6 +208,7 @@ function createGrid(ds) {
 
 function renderGrid(gridWidth,gridHeight){
     //create visual element.
+    
     const grid = document.createElement("div");
     grid.classList.add("grid");
     grid.id="grid";

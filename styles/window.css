@@ -56,6 +56,8 @@
     width: auto;
     display: inline;
     vertical-align: text-bottom;
+    position: relative;
+    left: 4px;
 }
 .window-title{
     /* color: white; */
@@ -100,6 +102,10 @@
 
 .disabled-toolbar-button {
     border-color: rgba(255, 255, 255, 0.418);
+}
+.spacer{
+    width: 69px;
+    display: inline-block;
 }
 
 .toolbar {

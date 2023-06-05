@@ -24,7 +24,7 @@
         <div class="top-bar">
             
             <div class="window-titlebar"><img src="images/winmine.png" class="window-logo" alt=""><p class="window-title">Minesweeper</p></div>
-            
+            <div class="spacer" id="spacer"></div>
             <div class="toolbar-wrapper">
             <div class="toolbar minimize"></div>
             <div class="toolbar maximize  disabled-toolbar-button"></div>
@@ -36,7 +36,7 @@
             <a class="menu-bar-item disabled" onclick="showFileContextMenu(2, 'help')">Help</a>
             <!-- <a class="menu-bar-item disabled" onclick="showFileContextMenu(3, 'edit')">Edit</a> -->
         </div>
-        <div class="context-menu gone"  id="context-menu" >
+        <div class="context-menu"  id="context-menu" >
             <div class="context-menu-item  "    >
                 <a class="context-menu-item" onclick="handleClick('easy')">New Game: Easy</a><br>
                 <a class="context-menu-item" onclick="handleClick('medium')">New Game: Medium</a><br>
