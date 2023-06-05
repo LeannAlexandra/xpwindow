@@ -1,9 +1,25 @@
-
+:root{
+   /* //color:brown; */
+    /* color: dark */
+    --clr-1: Blue;
+    --clr-2: Darkgreen;
+    --clr-3: Red;
+    --clr-4: Darkblue;
+    --clr-5: darkred;
+    --clr-6: DarkTurquoise;
+    --clr-7: darkorchid;
+    --clr-8: darkGrey;
+}
 
 .grid {
     height: fit-content;
     width: fit-content;
     margin: 0 auto;
+    border-width: 0;
+    border-right: 1px;
+    border-bottom: 1px;
+    border-color: grey;
+    border-style: solid;
 }
 
 .tile {
@@ -13,7 +29,7 @@
     border-width: 0;
     border-left: 1px;
     border-color: grey;
-    border-style: solid;
+    border-style:dotted;
     background:
         linear-gradient(to bottom right, rgb(255, 255, 255) 50%, rgb(128, 128, 128) 50%);
 }
@@ -34,7 +50,8 @@
 
 .tile p {
     font-family: 'Open Sans', sans-serif;
-    color: rgb(216, 216, 216);
+    /* set color according to number. (js.) color: rgb(216, 216, 216); */
+    font-weight: 900;
     margin: 0 auto;
     position: absolute;
     width: inherit;

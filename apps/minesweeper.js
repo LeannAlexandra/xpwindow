@@ -18,6 +18,7 @@ const difficultySettings = {
         height: 16
     }
 };
+
 let gameGrid =[];
 
 const game = document.getElementById("mineexe");
@@ -89,7 +90,7 @@ function play(x,y,tileID,textID){
         console.log("STRIKE! "+played);
         gameGrid[x][y]-=10;
         console.log(gameGrid[x][y]);
-        tile.style.background="rgb(192,192,192)";
+        tile.style.background="rgb(158,158,158)";
         //blank show no number. 
 
     } else{
@@ -99,9 +100,13 @@ function play(x,y,tileID,textID){
         console.log("PLAYED THE SENSIBLE "+played);
         gameGrid[x][y]-=10;
         console.log(gameGrid[x][y]);
-        tile.style.background="Green";
-    }
-    text.innerText=gameGrid[x][y];
+        tile.style.background="rgb(182,182,182)";
+        if(gameGrid[x][y]!=0)
+            text.innerText=gameGrid[x][y];
+            text.style.color =`var(--clr-${gameGrid[x][y]})`;
+
+        }
+    
     // tile.getElementsByClassName('tiletop').remove();
 }
 // if (!playing)
