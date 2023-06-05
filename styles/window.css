@@ -56,6 +56,9 @@
     background-color: rgb(192, 192, 192);
     box-shadow: inset 6px 6px 10px 0 rgba(0, 0, 0, .3), inset -6px -6px 10px 0 rgba(0, 0, 0, .3);
     height: fit-content;
+    width: fit-content;
+    min-width: fit-content;
+
     padding: 9px;    
 }
 
@@ -94,8 +97,10 @@
 }
 
 .context-menu{
-    background-color: rgb(221, 221, 221);
-    position: fixed;
+    /* background-color: rgb(221, 221, 221);
+     */
+     background-color:rgb(192, 192, 192);
+     position: fixed;
 
     /* d// isplay:flex; */
     /* left:    4px; */
