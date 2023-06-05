@@ -18,7 +18,8 @@ const difficultySettings = {
         height: 16
     }
 };
-
+let gameblocks=difficultySettings.easy.height*difficultySettings.easy.width; //in the easy game - there are 100 tiles. 
+let gamebombs=difficultySettings.easy.mines;
 let gameGrid =[];
 
 const game = document.getElementById("mineexe");
@@ -42,14 +43,14 @@ function handleClick (event){
 }
 function showFileContextMenu(pos, name){
 
-    if(played>=0 && played<10){ //already played
-        return;   }
+    // if(played>=0 && played<10){ //already played
+    //     return;   }
 
     //hide all menus
     const menus =document.getElementsByClassName("context-menu");
     if(menus)
     for (menu of menus){
-        menu.remove();
+        menu.classList.add('gone');
     }
 
     const newMenu=document.createElement("div");
@@ -62,14 +63,19 @@ function showFileContextMenu(pos, name){
     }
 
 }
-function play(x,y,tileID,textID){
+function play(x,y){
     let played=gameGrid[x][y]; 
     if(played<10&&played>=0) //already played
         return;
 
-    const tile=document.getElementById(tileID);
+    const tileid = tileID(x,y);
+    const textID= `txt-${tileid}`
+
+    const tile=document.getElementById(tileid);
     const text=document.getElementById(textID);
     const tiletop= tile.getElementsByClassName('tiletop');
+
+
 
     if(tiletop)
         tiletop[0].classList.add('hide');
@@ -77,7 +83,7 @@ function play(x,y,tileID,textID){
 
     if (played<0){
         //kaboooom!
-        console.log("KABOOOM!!!!!");
+        //console.log("KABOOOM!!!!!");
             //detonateBomb* 
             //detonateAllOtherBombs build the algorithm to detonate from wrong step
         tile.style.background="Red";
@@ -87,95 +93,61 @@ function play(x,y,tileID,textID){
     }else if(played===10){
         //recursion to open all connected blocks
         //open block, play each block around. 
-        console.log("STRIKE! "+played);
+        //console.log("STRIKE! "+played);
         gameGrid[x][y]-=10;
-        console.log(gameGrid[x][y]);
+        //console.log(gameGrid[x][y]);
         tile.style.background="rgb(158,158,158)";
+        gameblocks-=1;
+        //because it's a 0 play every block around this block starting with x-1 and y-1.
+        for(let xo=-1;xo<2;xo++){ //xo x-offset
+            for(let yo=-1;yo<2;yo++){ //yo y-offset
+                try{
+                    if(xo==0&&yo==0){
+                        continue;
+                    }
+                    if (gameGrid[x+xo][y+yo]<0){
+
+                        
+                    } else{
+                        //console.log(`we are in ${x}-${y}, Playing ${x+xo}-${y+yo}`);                
+                        play(x+xo,y+yo);//gameGrid[x][y]+=1;
+                    }
+                }catch(e){
+                    //console.log(e);
+                }
+               
+            }
+        }
+
+
         //blank show no number. 
 
     } else{
         // just a regular number, just open the number. 
 
         
-        console.log("PLAYED THE SENSIBLE "+played);
+        //console.log("PLAYED THE SENSIBLE "+played);
         gameGrid[x][y]-=10;
-        console.log(gameGrid[x][y]);
+        //console.log(gameGrid[x][y]);
         tile.style.background="rgb(182,182,182)";
         if(gameGrid[x][y]!=0)
             text.innerText=gameGrid[x][y];
             text.style.color =`var(--clr-${gameGrid[x][y]})`;
-
+        gameblocks-=1;
         }
-    
+
+    //console.log(`there are currently ${gameblocks} tiles left `);
+    if(gameblocks===gamebombs ){
+        //console.log(`WINNER WINNER CHICKEN DINNIR!!!`);
+    }
     // tile.getElementsByClassName('tiletop').remove();
 }
-// if (!playing)
-//     newGame(difficultySettings.easy);
-
-
-
-
-
-
-
-
-
-
-
-
-/* 
-function newGame(size) {
-    playing = true;
-    const grid = [];
-    for (let y = 0; y < size + 2; y++) {
-        let row = [];
-        console.log("creating new row");
-        for (let x = 0; x < size + 2; x++) {
-            console.log(`${x} ${y}`);
-            row.push(0);
-        }
-        console.log("Row: " + row);
-        grid.push(row);
-        printGrid(grid, size);
-    }
-
-    const bombs = [];
-    console.log("creating bombs");
-    for (let i = 0; i < size; i++) {
-        let x = Math.floor(Math.random() * size) + 1;
-        let y = Math.floor(Math.random() * size) + 1;
-        while (grid[x][y] < 0) {
-            x = Math.floor(Math.random() * size) + 1;
-            y = Math.floor(Math.random() * size) + 1;
-        }
-        console.log(`bomb ${i} at ${x} ${y}`);
-        grid[x][y] = -10; //a bomb will still be negative even with 8 adjacents
-    }
-    printGrid(grid, size);
-
-    for (let y = 1; y <= size; y++) {
-        for (let x = 1; x <= size; x++) {
-            if (grid[x][y] >= 0) {
-                // scan the 8 blocks around.
-                for (let a = -1; a <= 1; a++) {
-                    for (let b = -1; b <= 1; b++) {
-                        if (a == 0 && b == 0)
-                            continue; //skip the current block
-                        if (grid[x + a][y + b] < 0) {
-                            grid[x][y]++;
-                        }
-                    }
-                }
-            }
-        }
-    }
-    console.log(grid);
-    printGrid(grid, size);
-} */
-
-
 
 function createGrid(ds) {
+    gameblocks=ds.height*ds.width; //in the easy game - there are 100 tiles. 
+ gamebombs=ds.mines;
+ gameGrid =[];
+
     const bombs=ds.mines;
     const gridWidth=ds.width;
     const gridHeight=ds.height;
@@ -215,7 +187,7 @@ function createGrid(ds) {
                             gameGrid[x][y]+=1;
                         }
                     }catch(e){
-                        console.log(e);
+                        //console.log(e);
                     }
                    
                 }
@@ -250,8 +222,8 @@ function renderGrid(gridWidth,gridHeight){
             text.id=`txt-${tile.id}`;
             tile.appendChild(text);
             tile.addEventListener('click', ()=>{
-                console.log(tile.id);
-                play(rowNum+1,i+1,tile.id,text.id);
+                //console.log(tile.id);
+                play(rowNum+1,i+1);
             });
             tile.appendChild(tiletop);
             row.appendChild(tile);
@@ -269,12 +241,12 @@ function tileID(row, column){
 }
 
 function printGrid(gridGame) {
-    // console.log (gridGame);
+    // //console.log (gridGame);
     for (row of gridGame){
         let line ="";
         for (block of row){
             line+=`${block}\t`;
         }
-        console.log(line);
+        //console.log(line);
     }
 }

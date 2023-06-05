@@ -15,10 +15,12 @@
 }
 
 .top-bar {
-    align-items: end;
-    text-align: right;
+    /* align-items: end; */
+    /* text-align: justify; */
+    text-align: center;
     background: var(--clr-blue);
     height: 30px;
+    /* width: inherit; */
     margin: 0 0px;
     border-top-left-radius: inherit;
     border-top-right-radius: inherit;
@@ -34,6 +36,39 @@
     /* bottom: 465px; */
     box-shadow: inset 00px 2px 4px rgba(0, 0, 0, 0.4);
     /* z-index: 2; */
+}
+.window-logo{
+    /* align-self: flex-end; */
+    height: 26px;
+    /* width: auto; */
+    display: inline;
+    filter: drop-shadow(1px 1px 1px black);
+    filter: drop-shadow(0px 0px 2px rgb(255, 255, 255));
+    /* position: relative; */
+    /* top: 5px; */
+    /* right: 50px; */
+    position: relative;
+    top: 3px;
+/* left: 4px; */
+}
+.window-titlebar{
+    /* width: 53%; */
+    width: auto;
+    display: inline;
+    vertical-align: text-bottom;
+}
+.window-title{
+    /* color: white; */
+    position: relative;
+    top: -5px;
+    display: inline;
+    text-align: left;
+    line-height: 0;
+    color: white;
+    font-weight: 900;
+    font-family: 'Open Sans', sans-serif;
+    text-shadow: 1px 1px 1px black;
+    
 }
 
 .menu-bar-item {
@@ -68,16 +103,19 @@
 }
 
 .toolbar {
-    position: relative;
-    top: 5px;
     display: inline-block;
-    width: 21px;
-    height: 21px;
+    width: 19px;
+    height: 19px;
     border-radius: 4px;
     border-color: white;
     border-width: 1px;
     border-style: solid;
     background-color: aquamarine;
+}
+.toolbar-wrapper{
+    position: relative;
+    top: -02px;
+    display: inline-block;
 }
 
 .exit {

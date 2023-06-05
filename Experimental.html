@@ -19,15 +19,22 @@
 
 <body>
     <div class="window">
+        
+            
         <div class="top-bar">
+            
+            <div class="window-titlebar"><img src="images/winmine.png" class="window-logo" alt=""><p class="window-title">Minesweeper</p></div>
+            
+            <div class="toolbar-wrapper">
             <div class="toolbar minimize"></div>
             <div class="toolbar maximize  disabled-toolbar-button"></div>
             <div class="toolbar exit"></div>
+            </div>
         </div>
         <div class="menu-bar">
-            <a class="menu-bar-item" onclick="showFileContextMenu(1, 'file')">File</a>
-            <a class="menu-bar-item disabled" onclick="showFileContextMenu(2, 'view')">View</a>
-            <a class="menu-bar-item disabled" onclick="showFileContextMenu(3, 'edit')">Edit</a>
+            <a class="menu-bar-item" onclick="showFileContextMenu(1, 'game')">Game</a>
+            <a class="menu-bar-item disabled" onclick="showFileContextMenu(2, 'help')">Help</a>
+            <!-- <a class="menu-bar-item disabled" onclick="showFileContextMenu(3, 'edit')">Edit</a> -->
         </div>
         <div class="context-menu gone"  id="context-menu" >
             <div class="context-menu-item  "    >
@@ -38,7 +45,7 @@
         </div>
         <div class="window-content">
             <div class="mineexe" id="mineexe"></div>
-
+            <!-- <iframe src="https://en.wikipedia.org/wiki/Windows_XP" width="800px" height="600px  " title="description"></iframe> -->
 
         </div>
         <div class="bottom-bar">
