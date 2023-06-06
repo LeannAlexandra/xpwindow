@@ -322,3 +322,84 @@ body {
 .systray2 {
     left: calc(var(--ui-scale)*32px);
 }
+.user-details{
+    background: linear-gradient(to bottom,  rgba(255, 255, 255, 0.1) , rgba(255, 255, 255, 0.25) 9%, transparent 35%);
+    border-top-left-radius: inherit;
+    border-top-right-radius: inherit;
+    display: inline-block;
+    width: inherit;
+    color: white;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 800;
+    height: 120px
+}
+#username{
+    font-size: 36px;
+    display:inline-block;
+    position: relative;
+    top: -30px;
+    left: 20px;
+}
+.user-avatar{
+    background: rgb(192, 192, 192);
+    margin-left: 20px;
+    margin-top: 20px;
+    border-radius: 15px;
+    border-color: white;
+    border-width: 4px;
+    border-style: solid;
+    width: 80px;
+    height: 80px;
+    display: inline-block;
+}
+.startmenu-content-container{
+    background-color: rgba(255, 255, 255, 0.7);
+    height: 70%;
+    margin: 0 4px;
+    /* box-shadow: inset -1px 0px 13px rgb(100, 100, 100) ; */
+
+}
+.content-left{
+    width: 49%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.6);
+    /* background-color: aquamarine; */
+    vertical-align: top;
+
+    display: inline-block;
+    /* margin */
+}
+.content-right{
+    width: 49%;
+    height: 100%;
+    vertical-align: top;
+    /* background-color: turquoise; */
+    display: inline-block;
+}
+.content-item{
+    margin: 0px;
+    height: 70px;
+    width: 100%;
+    /* background-color: aquamarine; */
+}
+.content-item:hover{
+    /* background-color: rgb(255, 127, 249); */
+    background-color: rgba(255, 255, 255, 0.6);
+}
+.content-item-icon{
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+    position: relative; 
+    top: 15px;
+}
+.content-item-title{
+    /* color */
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 200;
+    display: inline-block;
+    user-select: none;
+    /* position: relative; */
+    /* top: -20px; */
+    /* margin-left: 40px; */
+}

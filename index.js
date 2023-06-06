@@ -157,7 +157,7 @@ async function preload() {
 }
 function toggleStartMenu() {
     //show if hidden, hides if shown.
-    document.getElementById("startmenu").classList.toggle("hide");
+    document.getElementById("startmenu").classList.toggle("gone");
 
 }
 function createTaskBar(...args) {
