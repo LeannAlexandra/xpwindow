@@ -299,10 +299,14 @@ body {
     width: calc(var(--ui-scale)*23px);
     height: calc(var(--ui-scale)*23px);
     border-radius: calc(var(--ui-scale)*5px);
-    background-color: teal;
+    /* background-color: teal; */
     top: calc(var(--ui-scale)*3px);
     text-align: center;
     margin: 0 auto;
+}
+.systray-icon{
+    height: inherit;
+    width: inherit;
 }
 
 .unselectable {

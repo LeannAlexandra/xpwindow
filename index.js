@@ -157,17 +157,89 @@ async function preload() {
 }
 function toggleStartMenu() {
     //show if hidden, hides if shown.
-    document.getElementById("startmenu").classList.toggle("gone");
-
+    if(document.getElementById("startmenu"))
+        document.getElementById("startmenu").classList.toggle("gone");
+    else{
+        const standardStartMenu=createStartMenu();
+        const startmenu = document.createElement('div');
+        startmenu.id ="startmenu"
+        desktop.appendChild(startmenu);
+    }
 }
 function createTaskBar(...args) {
     //args= systray icons-> start with none
 
     return `<div id="taskbar" class="unselectable taskbar"><div id="startbutton" class="startbutton" >
         <p><em><strong>start</strong></em></p><img class="logo" src="images/logo.svg" alt="" srcset="">
-    </div><div class="clockWidget"><p id="clockDisplay" class="clock">20:00</p><div class="systray1 systray"><p>1</p></div><div class="systray2 systray"><p>2</p></div></div ></div > `;
+    </div><div class="clockWidget"><p id="clockDisplay" class="clock">20:00</p><div class="systray1 systray"><img class="systray-icon" src="images/defended.png"/>></div><div class="systray2 systray"><img class="systray-icon" src="images/wifi.png"/></div></div ></div > `;
 }
+function createStartMenu(){
+    //if start menu != exist, make it. 
+return `<div id="startmenu" class="startmenu">
+<div class="user-details">
+    <img class="user-avatar" src="images/user-avatar.svg" alt="">
+    <h2 id="username">User</h2>
+</div>
+<div class="startmenu-content-container">
+    <div class="content-left">
+        <div class="content-item">
+            <img class="content-item-icon" src="images/mycomputer.png" alt="">
+            <h3 class="content-item-title">My Computer</h3>
+        </div>
+        
+        <div class="content-item">
+            <img class="content-item-icon" src="images/networking.png" alt="">
+            <h3 class="content-item-title">Network & Places</h3>
+        </div>
+        <div class="content-item">
+            <img class="content-item-icon" src="images/internet.png" alt="">
+            <h3 class="content-item-title">Internet Settings</h3>
+        </div>
+        
+        <div class="content-item">
+            <img class="content-item-icon" src="images/recyclebin-empty.png" alt="">
+            <h3 class="content-item-title">Recycle bin</h3>
+        </div>
+        
+        <div class="content-item">
+            <img class="content-item-icon" src="images/users.png" alt="">
+            <h3 class="content-item-title">Users</h3>
+        </div>
+        <div class="content-item">
+            <img class="content-item-icon" src="images/help.png" alt="">
+            <h3 class="content-item-title">Help</h3>
+        </div>
+    </div>
+    <div class="content-right">
+        <div class="content-item">
+            <img class="content-item-icon" src="images/filefolder.png" alt="">
+            <h3 class="content-item-title">Assessories</h3>
+        </div>
+        <div class="content-item">
+            <img class="content-item-icon" src="images/filefolder.png" alt="">
+            <h3 class="content-item-title">Games
+            </h3>
+        </div>
+        
+        <div class="content-item">
+            <img class="content-item-icon" src="images/winmine.png" alt="">
+            <h3 class="content-item-title">Minesweeper</h3>
+        </div>
+        <div class="content-item">
+            <img class="content-item-icon" src="images/ie8.png" alt="">
+            <h3 class="content-item-title">Internet Explorer</h3>
+        </div>
+        
+        <div class="content-item">
+            <img class="content-item-icon" src="images/diskdefragment.png" alt="">
+            <h3 class="content-item-title">Disk Defragmenter</h3>
+        </div>
+       
+    </div>
+</div>
+</div>`;
 
+}
 
 
 
