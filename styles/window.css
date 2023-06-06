@@ -1,7 +1,11 @@
 .window {
+    user-select: none;
     border-radius: 9px;
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
+    border-width: 1px;
+    border-color: black;
+    border-style: solid;
     /* width: wrap-content; */
     height: fit-content;
     margin: auto;
@@ -12,6 +16,9 @@
 
 
     background: var(--clr-blue);
+    position: absolute;
+    top: 150px;
+    left: 350px;
 }
 
 .top-bar {
@@ -61,6 +68,7 @@
 }
 .window-title{
     /* color: white; */
+    user-select: none;
     position: relative;
     top: -5px;
     display: inline;

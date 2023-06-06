@@ -1,5 +1,6 @@
-// alert("it works");
+//  alert("it works");
 let playing = false;
+
 const fileMenu=["New Game: Easy","New Game: Medium", "NewGame: Hard","Exit"]
 const difficultySettings = {
     easy: {

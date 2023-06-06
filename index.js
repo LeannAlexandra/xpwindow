@@ -1,8 +1,10 @@
 let dev = false; //in development skip artificial delayed timing
 let on = false; //doesnt start in an on state/
+let scripts=[];// if there is a script loaded, it only needs to be loaded once. (better in memory)
+let styles=[];//if a style is loaded, it doesn't need to be loaded again.
 const waitTime = 100;
 // let sysTrayCount = 0;
-
+// newWindow();
 const removePowerButton = document.getElementById("startupB");
 removePowerButton.addEventListener('click', startup);
 
@@ -33,8 +35,50 @@ async function startup() {
     getUIScale(); // used to set ui scale in rightclick -> display properties * value between 1 and 3 -> but 1.5 is closest to original.* (30px, but translates better to 45px on modern display)
 
 }
+function loadCSS(specialRequest){ //the css adding reloads the page/
+    
+    if (styles.includes(specialRequest))
+        return;
+    styles.push(specialRequest);
+    var headTag = document.getElementsByTagName('head')[0];
+    // if (!headTag.contains(specialRequest)){
+        const windowcss=document.createElement("link");
+        windowcss.href = `styles/${specialRequest}.css`;
+        windowcss.type = 'text/css';
+        windowcss.rel = 'stylesheet';
+        headTag.appendChild(windowcss);
+        document.body.appendChild(headTag);
+    // }
+}
+function loadJavascript(specialRequest){
+    if (scripts.includes(specialRequest))
+        return;
+    scripts.push(specialRequest);
+    var body = document.getElementsByTagName('body');
 
+    console.log(body);
+    // if (!body.contains(specialRequest)){
+        const newJS=document.createElement("script");
+        newJS.setAttribute('src',`apps/${specialRequest}`);
+        document.body.appendChild(newJS);
+    // }
+}
 
+function newWindow(appInfo){
+    // alert("it's loading");
+    hideStartMenu();
+    // loadCSS('window');
+    // loadCSS('mine');
+    loadJavascript('minesweeper.js');
+
+}
+function hideStartMenu(){
+    document.getElementById("startmenu").classList.add("gone");
+}
+function createWindowScript(){
+
+    
+}
 /*
 TODO:
     1. start menu
@@ -160,8 +204,9 @@ function toggleStartMenu() {
     if(document.getElementById("startmenu"))
         document.getElementById("startmenu").classList.toggle("gone");
     else{
-        const standardStartMenu=createStartMenu();
+        const standardStartMenu=createStartMenu(); //this never happens*
         const startmenu = document.createElement('div');
+        startmenu.innerHTML(standardStartMenu);
         startmenu.id ="startmenu"
         desktop.appendChild(startmenu);
     }
