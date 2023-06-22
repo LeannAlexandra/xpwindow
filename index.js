@@ -92,6 +92,8 @@ function newWindow(appInfo){
 function hideStartMenu(){
     document.getElementById("startmenu").classList.add("gone");
 }
+
+
 function createNewWindow(windowContent){
 
     if(document.getElementById(windowContent))
@@ -174,7 +176,7 @@ function createNewWindow(windowContent){
 
 
         //we dont need all this details, we really just need the offeset (sh,sw)
-        console.log(event);
+        // console.log(event);
         draggingWindow.winw= newWindow.getBoundingClientRect().width;
         draggingWindow.winh= newWindow.getBoundingClientRect().height;
 
@@ -184,7 +186,7 @@ function createNewWindow(windowContent){
         //we justn eed this
         draggingWindow.sh=document.body.getBoundingClientRect().height-draggingWindow.winh;
         draggingWindow.sw=document.body.getBoundingClientRect().width-draggingWindow.winw;
-        console.log(draggingWindow);
+        // console.log(draggingWindow);
         // // document.body
         // console.log();
 
@@ -218,7 +220,7 @@ function createNewWindow(windowContent){
             cy=0;
         if(cy>draggingWindow.sy)
             cy=draggingWindow.sy;
-console.log(`left: ${cx}px; top: ${cy}px;`);
+// console.log(`left: ${cx}px; top: ${cy}px;`);
         newWindow.setAttribute("style",`left: ${cx}px; top: ${cy}px;`);
     })
    // ##########DROP
@@ -240,6 +242,7 @@ console.log(`left: ${cx}px; top: ${cy}px;`);
     });
 
     //onStart();
+    
     return postLoadScript;
 }   
 /*
