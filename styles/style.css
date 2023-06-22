@@ -1,5 +1,5 @@
 :root {
-    --ui-scale: 1.5;
+    --ui-scale: 1;
     --clr-blue: linear-gradient(to bottom,
             rgb(49, 104, 213) 0%,
             rgb(73, 147, 230) 10%,
@@ -274,8 +274,8 @@ body {
     border-color: rgb(0, 0, 89);
     border-style: solid;
     border-radius: 15px 15px 15px 0;
-    width: calc(var(--ui-scale)*300px);
-    height: calc(var(--ui-scale)*400px);
+    width: 450px;
+    height: 600px;
     position: absolute;
     left: 1px;
     bottom: calc(var(--ui-scale)*30px);

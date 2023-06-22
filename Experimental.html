@@ -17,7 +17,7 @@
     <link rel="stylesheet" href="styles/mine.css">
 </head>
 
-<body>
+<body id="test-me">
     <div class="window">    
         <div class="top-bar">
             
@@ -51,7 +51,17 @@
         </div>
 
     </div>
-
+    <!-- <script>
+        function change(colorC){
+            console.log("CHANeING")
+            document.getElementById('mineexe').setAttribute("style",`background-color: ${colorC};`)
+            
+        }
+       setInterval(()=>{change("black");},1000);
+       setTimeout(()=>{
+          setInterval(()=>{change("turquoise");},1000)
+          },500);
+    </script> -->
     <script src="apps/minesweeper.js"></script>
 </body>
 

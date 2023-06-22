@@ -1,18 +1,33 @@
-let dev = false; //in development skip artificial delayed timing
+// import onStart from 'apps/minesweeper.js';
+
+let dev = true ||/**/ false; //in development skip artificial delayed timing
 let on = false; //doesnt start in an on state/
 let scripts=[];// if there is a script loaded, it only needs to be loaded once. (better in memory)
 let styles=[];//if a style is loaded, it doesn't need to be loaded again.
+const draggingWindow={
+    id: '',
+    x: 50, //xoffset 
+    y: 50, //yoffset
+    winw:0, //window width
+    winh:0, //window height
+    sh:0, //screen height
+    sw:0, //screen width
+    mousein:false //used for cancelling the "Mouse out timer"
+}; //allows an open window to have certain properties. (like size, bounds, and position.)
+// let offset=[{x:0,y:0}];
 const waitTime = 100;
 // let sysTrayCount = 0;
 // newWindow();
 const removePowerButton = document.getElementById("startupB");
 removePowerButton.addEventListener('click', startup);
 
+
+
 if (dev || on) {
     const removeh1 = document.getElementById("startup");
     removeh1.classList.add("gone");
     removePowerButton.classList.add("gone");
-    console.log("pc is on ... awaking from sleep");
+    // console.log("pc is on ... awaking from sleep");
     dev = true;
     startup();
 }
@@ -56,7 +71,7 @@ function loadJavascript(specialRequest){
     scripts.push(specialRequest);
     var body = document.getElementsByTagName('body');
 
-    console.log(body);
+    // console.log(body);
     // if (!body.contains(specialRequest)){
         const newJS=document.createElement("script");
         newJS.setAttribute('src',`apps/${specialRequest}`);
@@ -69,16 +84,164 @@ function newWindow(appInfo){
     hideStartMenu();
     // loadCSS('window');
     // loadCSS('mine');
-    loadJavascript('minesweeper.js');
+    const script= createNewWindow("mineexe");
+    if(script)
+        loadJavascript(script);
 
 }
 function hideStartMenu(){
     document.getElementById("startmenu").classList.add("gone");
 }
-function createWindowScript(){
+function createNewWindow(windowContent){
 
+    if(document.getElementById(windowContent))
+        return; //do nothing -> we can implement another method to create multiple instances. 
+    //use the ( window content ** to gather the information regarding titlebar, name, and etc. menubar, )
+    //assign values here. 
+    let timestamp=Date.now();
+    let windowTitle = "Minesweeper"
+    let windowLogo="winmine.png"
+    let toolbars = 3; // 0 -> no toolbars top right of window. (shorthand enum)
+    let postLoadScript='minesweeper.js';
+    let windowTopBar=true;
+    let menuBar=true;
+
+
+
+    // creates a window// and addss the input inside the content 
+    const desktop = document.getElementById("desktop");
+    const newWindow = document.createElement('div');
+    newWindow.classList.add("window");
+    newWindow.id=`${timestamp}`;
+    //   onMouseUp={dragEnd} onMouseMove={dragging} onMouseDown={dragStart}
+    // console.log(newWindow.getAttribute);
+    // //MAKE NEW WINDOW DRAGABLE **
+    // newWindow.addEventListener('mouseover', (event)=>{
+    //     const sx = event.clientX;
+    //     const sy = event.clientY;
+    //     console.log(sx + " : " + sy);
+    // });
+    // newWindow.addEventListener('click', (event)=>{});
+    // newWindow.addEventListener('mousemove', (event)=>{});
     
+
+    //add the titlebar and title logo
+
+    if(windowTopBar){
+    newWindow.innerHTML+=`<div id="draggable${timestamp}" class="top-bar">
+    <div class="window-titlebar"><img src="images/${windowLogo}" class="window-logo" alt=""><p class="window-title">${windowTitle}</p></div>
+    <div class="spacer" id="spacer"></div>
+    <div class="toolbar-wrapper">
+    <div class="toolbar minimize ${toolbars>2? "good" : "hide" } "></div>
+    <div class="toolbar maximize ${toolbars>3? "good" : "hide" }  disabled-toolbar-button"></div>
+    <div class="toolbar exit  ${toolbars>1? "good" : "hide" }" onclick = "document.getElementById(${timestamp}).remove()"></div></div></div>`;
 }
+    
+
+    //add the menuBar
+    if(menuBar){
+    newWindow.innerHTML+=`<div class="menu-bar">
+    <a class="menu-bar-item" onclick="showFileContextMenu(1, 'game')">Game</a>
+    <a class="menu-bar-item disabled" onclick="showFileContextMenu(2, 'help')">Help</a></div>
+    <div class="context-menu gone"  id="context-menu" >
+            <div class="context-menu-item">
+                <a class="context-menu-item" onclick="handleClick('easy')">New Game: Easy</a><br>
+                <a class="context-menu-item" onclick="handleClick('medium')">New Game: Medium</a><br>
+                <a class="context-menu-item" onclick="handleClick('hard')">New Game: Hard</a>
+            </div>    
+        </div>`;
+    }
+
+    //if windowContent is mineexe  //hard coded for convenience 
+    newWindow.innerHTML+=`<div class="window-content">
+    <div class="${windowContent}" id="${windowContent}"></div></div>
+    <script src="apps/${postLoadScript}"></script>`
+
+    // const loadScript
+    // newWindow.innerHTML+=windowContent;
+
+    desktop.appendChild(newWindow);
+    //add the dragabble listeners to the top-bar of the newly created window (that the window can only be dragged by clicking the top bar -> but the function must move the window itsself
+    const dragabbleWindowElement=document.getElementById(`draggable${newWindow.id}`);
+
+
+    //add dragable functionality 
+    // #######INITIATE DRAG
+    dragabbleWindowElement.addEventListener('mousedown',(event)=>{
+        draggingWindow.id=timestamp;
+
+        // draggingWindowElement
+
+
+        //we dont need all this details, we really just need the offeset (sh,sw)
+        console.log(event);
+        draggingWindow.winw= newWindow.getBoundingClientRect().width;
+        draggingWindow.winh= newWindow.getBoundingClientRect().height;
+
+        draggingWindow.sh=document.body.getBoundingClientRect().height;
+        draggingWindow.sw=document.body.getBoundingClientRect().width;
+        // console.log(draggingWindow);
+        //we justn eed this
+        draggingWindow.sh=document.body.getBoundingClientRect().height-draggingWindow.winh;
+        draggingWindow.sw=document.body.getBoundingClientRect().width-draggingWindow.winw;
+        console.log(draggingWindow);
+        // // document.body
+        // console.log();
+
+
+        offsetstring=newWindow.getAttribute("style");
+        
+        if (offsetstring){
+            offsetstring=offsetstring.substring(6,offsetstring.length-3);
+            draggingWindow.x=parseInt(offsetstring.substring(0,offsetstring.indexOf(`px;`)))-event.clientX;
+            draggingWindow.y=parseInt(offsetstring.substring(offsetstring.indexOf(`: `)+1))-event.clientY; 
+        }else{
+            draggingWindow.x=0-event.clientX;
+            draggingWindow.y=0-event.clientY;
+        }
+    })
+    // ######## DRAG
+    dragabbleWindowElement.addEventListener('mousemove',(event)=>{
+        //if it is not being moved ... dont do anything, 
+        if(draggingWindow.id!=timestamp)
+            return; 
+
+
+        cx =event.clientX+draggingWindow.x;
+        if(cx<0)
+            cx=0;
+        if(cx>draggingWindow.sx)
+            cx=draggingWindow.sx;
+
+        cy =event.clientY+draggingWindow.y;
+        if(cy<0)
+            cy=0;
+        if(cy>draggingWindow.sy)
+            cy=draggingWindow.sy;
+console.log(`left: ${cx}px; top: ${cy}px;`);
+        newWindow.setAttribute("style",`left: ${cx}px; top: ${cy}px;`);
+    })
+   // ##########DROP
+    dragabbleWindowElement.addEventListener('mouseup',(event)=>{
+        draggingWindow.id="";//no window is being dragged
+    });
+    dragabbleWindowElement.addEventListener('mouseout', ()=>{
+        // draggingWindow.mousein=false;
+        // setTimeout(()=>{
+            // if(!draggingWindow.mousein)
+                draggingWindow.id="";/*no window is being dragged*/  //timeout doenst cancel -> reverted to old method;... code let fot future tinkering.
+             // console.log("mouse still out")
+        // },700); // gives the dragging window a bit of time to relocate, if the mouse is not in by the time the timeout calls the function, stop dragging
+        
+    });
+    dragabbleWindowElement.addEventListener('mousein', ()=>{
+        // draggingWindow.mousein=true;
+        // console.log("mouse reentered");
+    });
+
+    //onStart();
+    return postLoadScript;
+}   
 /*
 TODO:
     1. start menu
@@ -292,7 +455,7 @@ return `<div id="startmenu" class="startmenu">
 /// THE UPDATE CLOCK AND SET INTERVAL TO UPDATE EVERY MINUTE.
 async function runClock() {
     updateTime();
-    setInterval(updateTime, 60000);
+    setInterval(updateTime, 6000);
 }
 function updateTime() {
     const timeDisplay = document.getElementById("clockDisplay");

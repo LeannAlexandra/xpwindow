@@ -29,7 +29,9 @@ let gameGrid =[];
 const game = document.getElementById("mineexe");
 createGrid(difficultySettings.easy);
 renderGrid(difficultySettings.easy.width,difficultySettings.easy.height);
-
+// export function onStart(){
+//     handleClick('easy');
+// }
 function handleClick (event){
     const del = document.getElementById("grid");
     if(del)
