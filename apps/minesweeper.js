@@ -1,5 +1,5 @@
 //  alert("it works");
-let playing = false;
+// let playing = false;
 
 const fileMenu=["New Game: Easy","New Game: Medium", "NewGame: Hard","Exit"]
 const difficultySettings = {
@@ -36,6 +36,7 @@ function handleClick (event){
     const del = document.getElementById("grid");
     if(del)
         del.remove();
+        
     let gd=difficultySettings.easy;
     
     if(event==='medium')
