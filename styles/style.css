@@ -1,5 +1,5 @@
 :root {
-    --ui-scale: 1;
+    --ui-scale: 1.5;
     --clr-blue: linear-gradient(to bottom,
             rgb(49, 104, 213) 0%,
             rgb(73, 147, 230) 10%,

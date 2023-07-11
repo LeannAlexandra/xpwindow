@@ -1,9 +1,10 @@
 //import {handleClick} from '/apps/minesweeper.js';
 
-let dev = /*true ||/**/ false; //in development skip artificial delayed timing
+let dev = true ||/**/ false; //in development skip artificial delayed timing
 let on = false; //doesnt start in an on state/
 let scripts=[];// if there is a script loaded, it only needs to be loaded once. (better in memory)
 let styles=[];//if a style is loaded, it doesn't need to be loaded again.
+let uiScale=1; 
 const draggingWindow={
     id: '',
     x: 50, //xoffset 
@@ -16,8 +17,60 @@ const draggingWindow={
 }; //allows an open window to have certain properties. (like size, bounds, and position.)
 // let offset=[{x:0,y:0}];
 const waitTime = 100;
+const body = document.getElementsByTagName('body')[0];
 // let sysTrayCount = 0;
 // newWindow();
+
+//////////TOPLEVEL DESKTOP LOGIC////////////
+body.addEventListener('mouseup',(event)=>{
+    draggingWindow.id="";//no window is being dragged
+});
+
+
+/////////////////////////////////////////MINESWEEPER VARIABLES & CONSTS//////////////////////////////////////
+const mineGames=[{}]; // an array of objects each object is a game, Ideally only one instance would exist, but we're preparing for the 4 instance scenario.
+
+const fileMenu=["Easy","Medium", "Hard","Exit"]
+const difficultySettings = {
+    easy: {
+        mines: 10,
+        width: 10,
+        height: 10,
+        spacer: 69
+    },
+    medium: {
+        mines: 40,
+        width: 16,
+        height: 16,
+        spacer: 225
+    },
+    hard: {
+        mines: 99,
+        width: 30,
+        height: 16,
+        spacer: 580
+    }
+};
+let gameblocks=difficultySettings.easy.height*difficultySettings.easy.width; //in the easy game - there are 100 tiles. 
+let gamebombs=difficultySettings.easy.mines;
+let gameGrid =[];
+
+let game;   // = document.getElementById("mineexe"); // PLUS UNIQUE ID* to differentiate between active games. 
+
+
+
+////////////////////////////////////////// 
+
+
+
+
+
+
+
+
+
+
+
 const removePowerButton = document.getElementById("startupB");
 removePowerButton.addEventListener('click', startup);
 
@@ -47,10 +100,10 @@ async function startup() {
     loadBar();
     preload();
     // on = true;
-    getUIScale(); // used to set ui scale in rightclick -> display properties * value between 1 and 3 -> but 1.5 is closest to original.* (30px, but translates better to 45px on modern display)
-
+    uiScale=getUIScale(); // used to set ui scale in rightclick -> display properties * value between 1 and 3 -> but 1.5 is closest to original.* (30px, but translates better to 45px on modern display)
+    // console.log(uiScale); // it works to get the uiscale var from the css... 
 }
-function loadCSS(specialRequest){ //the css adding reloads the page/
+function loadCSS(specialRequest){ //the css adding reloads the page// so dont hotlaod new css...
     
     if (styles.includes(specialRequest))
         return;
@@ -65,33 +118,32 @@ function loadCSS(specialRequest){ //the css adding reloads the page/
         document.body.appendChild(headTag);
     // }
 }
-function loadJavascript(specialRequest){
-    if (scripts.includes(specialRequest))
-        return;
-    else{
-            //call function for new easy game.
-            handleClick();
-        }
+// function loadJavascript(specialRequest){    //////TAKEN OUT BECAUSE MIGRATION OF MINESwEEPeR CODe INTO THIS CODE...
+//     if (scripts.includes(specialRequest))
+//         return;
+//     else{
+//             //call function for new easy game.
+//             handleClick();
+//         }
 
-    scripts.push(specialRequest);
-    var body = document.getElementsByTagName('body');
+//     scripts.push(specialRequest);
+//     var body = document.getElementsByTagName('body');
 
-    // console.log(body);
-    // if (!body.contains(specialRequest)){
-        const newJS=document.createElement("script");
-        newJS.setAttribute('src',`apps/${specialRequest}`);
-        document.body.appendChild(newJS);
-    // }
-}
+//     // console.log(body);
+//     // if (!body.contains(specialRequest)){
+//         const newJS=document.createElement("script");
+//         newJS.setAttribute('src',`apps/${specialRequest}`);
+//         document.body.appendChild(newJS);
+//     // }
+// }
 
 function newWindow(appInfo){
     // alert("it's loading");
     hideStartMenu();
     // loadCSS('window');
     // loadCSS('mine');
-    const script= createNewWindow("mineexe");
-    if(script)
-        loadJavascript(script);
+    createNewWindow("mineexe");
+    handleClick();
 
 }
 function hideStartMenu(){
@@ -135,28 +187,28 @@ function createNewWindow(windowContent){
     //add the titlebar and title logo
 
     if(windowTopBar){
-    newWindow.innerHTML+=`<div id="draggable${timestamp}" class="top-bar">
-    <div class="window-titlebar"><img src="images/${windowLogo}" class="window-logo" alt=""><p class="window-title">${windowTitle}</p></div>
-    <div class="spacer" id="spacer"></div>
-    <div class="toolbar-wrapper">
-    <div class="toolbar minimize ${toolbars>2? "good" : "hide" } "></div>
-    <div class="toolbar maximize ${toolbars>3? "good" : "hide" }  disabled-toolbar-button"></div>
-    <div class="toolbar exit  ${toolbars>1? "good" : "hide" }" onclick = "document.getElementById(${timestamp}).remove()"></div></div></div>`;
-}
+        newWindow.innerHTML+=`<div id="draggable${timestamp}" class="top-bar">
+        <div class="window-titlebar"><img src="images/${windowLogo}" class="window-logo" alt=""><p class="window-title">${windowTitle}</p></div>
+        <div class="spacer" id="spacer"></div>
+        <div class="toolbar-wrapper">
+        <div class="toolbar minimize ${toolbars>2? "good" : "hide" } "></div>
+        <div class="toolbar maximize ${toolbars>3? "good" : "hide" }  disabled-toolbar-button"></div>
+        <div class="toolbar exit  ${toolbars>1? "good" : "hide" }" onclick = "document.getElementById(${timestamp}).remove()"></div></div></div>`;
+    }
     
 
     //add the menuBar
     if(menuBar){
-    newWindow.innerHTML+=`<div class="menu-bar">
-    <a class="menu-bar-item" onclick="showFileContextMenu(1, 'game')">Game</a>
-    <a class="menu-bar-item disabled" onclick="showFileContextMenu(2, 'help')">Help</a></div>
-    <div class="context-menu gone"  id="context-menu" >
-            <div class="context-menu-item">
-                <a class="context-menu-item" onclick="handleClick('easy')">New Game: Easy</a><br>
-                <a class="context-menu-item" onclick="handleClick('medium')">New Game: Medium</a><br>
-                <a class="context-menu-item" onclick="handleClick('hard')">New Game: Hard</a>
-            </div>    
-        </div>`;
+        newWindow.innerHTML+=`<div id="menu-bar" class="menu-bar">
+        <a class="menu-bar-item" onclick="showFileContextMenu(1, 'game')">Game</a>
+        <a class="menu-bar-item disabled" onclick="showFileContextMenu(2, 'help')">Help</a></div>
+        <div class="context-menu gone"  id="context-menu" >
+                <div class="context-menu-item">
+                    <a class="context-menu-item" onclick="handleClick('easy')">New Game: Easy</a><br>
+                    <a class="context-menu-item" onclick="handleClick('medium')">New Game: Medium</a><br>
+                    <a class="context-menu-item" onclick="handleClick('hard')">New Game: Hard</a>
+                </div>    
+            </div>`;
     }
 
     //if windowContent is mineexe  //hard coded for convenience 
@@ -189,7 +241,7 @@ function createNewWindow(windowContent){
         draggingWindow.sw=document.body.getBoundingClientRect().width;
         // console.log(draggingWindow);
         //we justn eed this
-        draggingWindow.sh=document.body.getBoundingClientRect().height-draggingWindow.winh;
+        draggingWindow.sh=document.body.getBoundingClientRect().height-draggingWindow.winh-(30*uiScale);
         draggingWindow.sw=document.body.getBoundingClientRect().width-draggingWindow.winw;
         // console.log(draggingWindow);
         // // document.body
@@ -208,7 +260,7 @@ function createNewWindow(windowContent){
         }
     })
     // ######## DRAG
-    dragabbleWindowElement.addEventListener('mousemove',(event)=>{
+    body.addEventListener('mousemove',(event)=>{
         //if it is not being moved ... dont do anything, 
         if(draggingWindow.id!=timestamp)
             return; 
@@ -217,30 +269,28 @@ function createNewWindow(windowContent){
         cx =event.clientX+draggingWindow.x;
         if(cx<0)
             cx=0;
-        if(cx>draggingWindow.sx)
-            cx=draggingWindow.sx;
+        if(cx>draggingWindow.sw)
+            cx=draggingWindow.sw;
 
         cy =event.clientY+draggingWindow.y;
         if(cy<0)
             cy=0;
-        if(cy>draggingWindow.sy)
-            cy=draggingWindow.sy;
+        if(cy>draggingWindow.sh)
+            cy=draggingWindow.sh;
 // console.log(`left: ${cx}px; top: ${cy}px;`);
         newWindow.setAttribute("style",`left: ${cx}px; top: ${cy}px;`);
     })
    // ##########DROP
-    dragabbleWindowElement.addEventListener('mouseup',(event)=>{
-        draggingWindow.id="";//no window is being dragged
-    });
-    dragabbleWindowElement.addEventListener('mouseout', ()=>{
-        // draggingWindow.mousein=false;
-        // setTimeout(()=>{
-            // if(!draggingWindow.mousein)
-                draggingWindow.id="";/*no window is being dragged*/  //timeout doenst cancel -> reverted to old method;... code let fot future tinkering.
-             // console.log("mouse still out")
-        // },700); // gives the dragging window a bit of time to relocate, if the mouse is not in by the time the timeout calls the function, stop dragging
+  
+//     dragabbleWindowElement.addEventListener('mouseout', ()=>{
+//         // draggingWindow.mousein=false;
+//         // setTimeout(()=>{
+//             // if(!draggingWindow.mousein)
+// //                draggingWindow.id="";/*no window is being dragged*/  //timeout doenst cancel -> reverted to old method;... code let fot future tinkering.
+//              // console.log("mouse still out")
+//         // },700); // gives the dragging window a bit of time to relocate, if the mouse is not in by the time the timeout calls the function, stop dragging
         
-    });
+//     });
     dragabbleWindowElement.addEventListener('mousein', ()=>{
         // draggingWindow.mousein=true;
         // console.log("mouse reentered");
@@ -281,7 +331,9 @@ function getUIScale() {
     // console.log(parseFloat(styles.getPropertyValue('--ui-scale').trim()))
     return parseFloat(styles.getPropertyValue('--ui-scale').trim());
 }
-function setUIScale() { }
+function setUIScale() { 
+
+}
 
 function createContextMenu(x, y) {
 
@@ -510,78 +562,115 @@ https://www.nicepng.com/maxp/u2q8o0q8a9a9y3o0/
 //each icon should have script that makes it drag-droppable on the screen-
 //NTH: and on resize keep them in bounds **
 
-/////////////////////////////////////////MINESWEEPER CODE//////////////////////////////////////
-const mineGames=[{}]; // an array of objects each object is a game, Ideally only one instance would exist, but we're preparing for the 4 instance scenario.
 
-const fileMenu=["New Game: Easy","New Game: Medium", "NewGame: Hard","Exit"]
-const difficultySettings = {
-    easy: {
-        mines: 10,
-        width: 10,
-        height: 10,
-        spacer: 69
-    },
-    medium: {
-        mines: 40,
-        width: 16,
-        height: 16,
-        spacer: 225
-    },
-    hard: {
-        mines: 99,
-        width: 30,
-        height: 16,
-        spacer: 580
-    }
-};
-let gameblocks=difficultySettings.easy.height*difficultySettings.easy.width; //in the easy game - there are 100 tiles. 
-let gamebombs=difficultySettings.easy.mines;
-let gameGrid =[];
 
-const game = document.getElementById("mineexe");
-createGrid(difficultySettings.easy);
-renderGrid(difficultySettings.easy.width,difficultySettings.easy.height);
+
+
+
+
+/////////////////////////////////////////winmine code
+
+//createGrid(difficultySettings.easy);
+//renderGrid(difficultySettings.easy.width,difficultySettings.easy.height);
 // export function onStart(){
 //     handleClick('easy');
 // }
 function handleClick (event){
-    const del = document.getElementById("grid");
+    //console.log(event);
+
+/*
+    ui-scale 1
+    small
+    287 +2      x     343  +4
+    289/347
+
+    med
+    445/503
+
+    large
+    809,503
+  
+
+    uiscale 1.5
+
+    small
+    423/511
+
+    med
+    654/742
+
+    large
+    1193/742
+
+
+*/
+    console.log(event);
+
+    const xdel = document.getElementById("context-menu");
+    if(xdel)
+        xdel.remove();
+    
+    game = document.getElementById("mineexe"); // PLUS UNIQUE ID* to differentiate between active games. 
+    
+    
+    const menu =document.getElementsByClassName("context-menu");
+    for (m of menu)
+        m.remove();
+
+    const del = document.getElementById("grid");  ///+UNIQUE ID>>>>
     if(del)
         del.remove();
-        
+    if (event==="Exit")
+        return;
+
+
+
     let gd=difficultySettings.easy;
     
-    if(event==='medium')
+    if(event==='Medium')
         gd=difficultySettings.medium;
-    else if(event==='hard')
+    else if(event==='Hard')
         gd=difficultySettings.hard;
     
+
     createGrid(gd);
     renderGrid(gd.width,gd.height);
     
-    document.getElementById("context-menu").remove();
 }
 function showFileContextMenu(pos, name){
 
     // if(played>=0 && played<10){ //already played
     //     return;   }
-
+    // console.log("this click is happening: "+`${pos} ... ${name}`)
     //hide all menus
-    const menus =document.getElementsByClassName("context-menu");
-    if(menus)
-    for (menu of menus){
-        menu.classList.add('gone');
-    }
+    const menus = document.getElementsByClassName("context-menu");
+    
+    for (m of menus)
+        m.remove();
 
     const newMenu=document.createElement("div");
     newMenu.classList.add("context-menu");
     for(option of fileMenu){
         const opt= document.createElement('a');
-        opt.innerHTML=option;
-        opt.addEventListener('click', ()=>{handleClick(option)})
+        opt.setAttribute('onClick',`handleClick('${option}')`);
+        
+        // opt.addEventListener('click', ()=>{ 
+        //     console.log(option);
+        //      handleClick("CLICKLIE");
+        //      })
+        opt.classList.add('context-menu-item');
+        opt.innerHTML=`${option}`;
+        // opt.addEventListener('click', ()=>{ 
+        //     console.log(option);
+        //      handleClick("CLICKLIE");
+        //      })
         newMenu.appendChild(opt);
+        newMenu.innerHTML+="<br>";
     }
 
+    document.getElementById("menu-bar").appendChild(newMenu);
+
+    /////TODO: THIS WORKS< BUT...
 }
 function play(x,y){
     let played=gameGrid[x][y]; 
@@ -727,7 +816,7 @@ function renderGrid(gridWidth,gridHeight){
     
     const grid = document.createElement("div");
     grid.classList.add("grid");
-    grid.id="grid";
+    grid.id="grid"; //+uniqueid///
     for (let rowNum = 0; rowNum < gridHeight; rowNum++) {
         const row = document.createElement("div");
         row.classList.add("row");

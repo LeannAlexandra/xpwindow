@@ -24,8 +24,8 @@
 
 .tile {
     display: inline-block;
-    width: 25px;
-    height: 25px;
+    width: calc(var(--ui-scale)*25px);
+    height: calc(var(--ui-scale)*25px);
     border-width: 0;
     border-left: 1px;
     border-color: grey;
@@ -36,9 +36,9 @@
 
 .tiletop {
     position: relative;
-    margin: 3px;
-    height: 19px;
-    width: 19px;
+    margin: calc(var(--ui-scale)*3px);
+    height: calc(var(--ui-scale)*19px);
+    width: calc(var(--ui-scale)*19px);
     background: rgb(192, 192, 192);
 }
 
@@ -51,6 +51,7 @@
 .tile p {
     font-family: 'Open Sans', sans-serif;
     /* set color according to number. (js.) color: rgb(216, 216, 216); */
+    font-size: calc(var(--ui-scale)*16px);
     font-weight: 900;
     margin: 0 auto;
     position: absolute;
@@ -60,7 +61,7 @@
 
 .row {
     width: inherit;
-    height: 25px;
+    height: calc(var(--ui-scale)*25px);
     text-align: center;
     border-width: 0;
     border-top: 1px;
