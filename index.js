@@ -20,7 +20,7 @@ const waitTime = 100;
 const body = document.getElementsByTagName('body')[0];
 // let sysTrayCount = 0;
 // newWindow();
-
+let openWindows=[""]; // open windows = array of windows.
 //////////TOPLEVEL DESKTOP LOGIC////////////
 body.addEventListener('mouseup',(event)=>{
     draggingWindow.id="";//no window is being dragged
@@ -137,13 +137,94 @@ function loadCSS(specialRequest){ //the css adding reloads the page// so dont ho
 //     // }
 // }
 
-function newWindow(appInfo){
-    // alert("it's loading");
+function newWindow(appInfo, timestamp=0, allowMultipleWindows =false){
+    //close all colapsable windows.
     hideStartMenu();
-    // loadCSS('window');
-    // loadCSS('mine');
-    createNewWindow("mineexe");
-    handleClick();
+    //new window= create new window....
+
+    //add contents = add unique logic.
+
+    if(false){
+        newInternetExplorer();
+    
+    } else if(true || appInfo==="mine"){ //handle minesweeper
+        createNewWindow("mineexe");// only creates a window for mine. 
+        handleClick();
+    }   
+
+}
+function newInternetExplorer() //create new window, without winmine, but add textbar, with functions to finally brows internet, set resizable.
+{
+    alert("it registers as IE8");
+    let timestamp=Date.now();
+    let windowTitle = "Internet Explorer"
+    let windowLogo="ie8.png"
+    let toolbars = 3; // 0 -> no toolbars top right of window. (shorthand enum)
+    let postLoadScript='minesweeper.js';
+    let windowTopBar=true;
+    let menuBar=true;
+    let menubarItems=["","",""];
+
+    const desktop = document.getElementById("desktop");
+    const newWindow = document.createElement('div');
+    newWindow.classList.add("window");
+    newWindow.id=`${timestamp}`;
+
+    if(menuBar){
+        newWindow.innerHTML+=`<div id="menu-bar" class="menu-bar">
+        <a class="menu-bar-item" onclick="showFileContextMenu(1, 'game')">Game</a>
+        <a class="menu-bar-item disabled" onclick="showFileContextMenu(2, 'help')">Help</a></div>
+        <div class="context-menu gone"  id="context-menu" >
+                <div class="context-menu-item">
+                    <a class="context-menu-item" onclick="handleClick('easy')">File</a><br>
+                    <a class="context-menu-item" onclick="handleClick('medium')">Edit</a><br>
+                    <a class="context-menu-item" onclick="handleClick('hard')">View</a>
+                </div>    
+            </div>`;
+    }
+    newWindow.innerHTML+=`<div class="window-content">
+    <div class="${windowContent}" id="${windowContent}"></div></div>`
+        desktop.appendChild(newWindow);
+        const dragabbleWindowElement=document.getElementById(`draggable${newWindow.id}`);
+        dragabbleWindowElement.addEventListener('mousedown',(event)=>{
+        draggingWindow.id=timestamp;
+        draggingWindow.winw= newWindow.getBoundingClientRect().width;
+        draggingWindow.winh= newWindow.getBoundingClientRect().height;
+        draggingWindow.sh=document.body.getBoundingClientRect().height;
+        draggingWindow.sw=document.body.getBoundingClientRect().width;
+        draggingWindow.sh=document.body.getBoundingClientRect().height-draggingWindow.winh-(30*uiScale);
+        draggingWindow.sw=document.body.getBoundingClientRect().width-draggingWindow.winw;
+        offsetstring=newWindow.getAttribute("style");
+        
+        if (offsetstring){
+            offsetstring=offsetstring.substring(6,offsetstring.length-3);
+            draggingWindow.x=parseInt(offsetstring.substring(0,offsetstring.indexOf(`px;`)))-event.clientX;
+            draggingWindow.y=parseInt(offsetstring.substring(offsetstring.indexOf(`: `)+1))-event.clientY; 
+        }else{
+            draggingWindow.x=0-event.clientX;
+            draggingWindow.y=0-event.clientY;
+        }
+    })
+    body.addEventListener('mousemove',(event)=>{
+        if(draggingWindow.id!=timestamp)
+            return; 
+        cx =event.clientX+draggingWindow.x;
+        if(cx<0)
+            cx=0;
+        if(cx>draggingWindow.sw)
+            cx=draggingWindow.sw;
+
+        cy =event.clientY+draggingWindow.y;
+        if(cy<0)
+            cy=0;
+        if(cy>draggingWindow.sh)
+            cy=draggingWindow.sh;
+        newWindow.setAttribute("style",`left: ${cx}px; top: ${cy}px;`);
+    })
+    dragabbleWindowElement.addEventListener('mousein', ()=>{
+    });
+
+
 
 }
 function hideStartMenu(){
@@ -151,7 +232,7 @@ function hideStartMenu(){
 }
 
 
-function createNewWindow(windowContent){
+function createNewWindow(windowContent){ //this creates minesweeper only -> in refactor, fix the 
 
     if(document.getElementById(windowContent))
         return; //do nothing -> we can implement another method to create multiple instances. 
@@ -165,7 +246,15 @@ function createNewWindow(windowContent){
     let windowTopBar=true;
     let menuBar=true;
 
-
+    if(windowTopBar){
+        newWindow.innerHTML+=`<div id="draggable${timestamp}" class="top-bar">
+        <div class="window-titlebar"><img src="images/${windowLogo}" class="window-logo" alt=""><p class="window-title">${windowTitle}</p></div>
+        <div class="spacer" id="spacer"></div>
+        <div class="toolbar-wrapper">
+        <div class="toolbar minimize ${toolbars>2? "good" : "hide" } "></div>
+        <div class="toolbar maximize ${toolbars>3? "good" : "hide" }  disabled-toolbar-button"></div>
+        <div class="toolbar exit  ${toolbars>1? "good" : "hide" }" onclick = "document.getElementById(${timestamp}).remove()"></div></div></div>`;
+    }
 
     // creates a window// and addss the input inside the content 
     const desktop = document.getElementById("desktop");
@@ -211,7 +300,6 @@ function createNewWindow(windowContent){
             </div>`;
     }
 
-    //if windowContent is mineexe  //hard coded for convenience 
     newWindow.innerHTML+=`<div class="window-content">
     <div class="${windowContent}" id="${windowContent}"></div></div>
     <script src="apps/${postLoadScript}"></script>`
