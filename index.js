@@ -246,21 +246,23 @@ function createNewWindow(windowContent){ //this creates minesweeper only -> in r
     let windowTopBar=true;
     let menuBar=true;
 
-    if(windowTopBar){
-        newWindow.innerHTML+=`<div id="draggable${timestamp}" class="top-bar">
-        <div class="window-titlebar"><img src="images/${windowLogo}" class="window-logo" alt=""><p class="window-title">${windowTitle}</p></div>
-        <div class="spacer" id="spacer"></div>
-        <div class="toolbar-wrapper">
-        <div class="toolbar minimize ${toolbars>2? "good" : "hide" } "></div>
-        <div class="toolbar maximize ${toolbars>3? "good" : "hide" }  disabled-toolbar-button"></div>
-        <div class="toolbar exit  ${toolbars>1? "good" : "hide" }" onclick = "document.getElementById(${timestamp}).remove()"></div></div></div>`;
-    }
-
+   
     // creates a window// and addss the input inside the content 
     const desktop = document.getElementById("desktop");
     const newWindow = document.createElement('div');
     newWindow.classList.add("window");
     newWindow.id=`${timestamp}`;
+
+        //  if(windowTopBar){
+        //     newWindow.innerHTML+=`<div id="draggable${timestamp}" class="top-bar">
+        //     <div class="window-titlebar"><img src="images/${windowLogo}" class="window-logo" alt=""><p class="window-title">${windowTitle}</p></div>
+        //     <div class="spacer" id="spacer"></div>
+        //     <div class="toolbar-wrapper">
+        //     <div class="toolbar minimize ${toolbars>2? "good" : "hide" } "></div>
+        //     <div class="toolbar maximize ${toolbars>3? "good" : "hide" }  disabled-toolbar-button"></div>
+        //     <div class="toolbar exit  ${toolbars>1? "good" : "hide" }" onclick = "document.getElementById(${timestamp}).remove()"></div></div></div>`;
+        // }
+
     //   onMouseUp={dragEnd} onMouseMove={dragging} onMouseDown={dragStart}
     // console.log(newWindow.getAttribute);
     // //MAKE NEW WINDOW DRAGABLE **
@@ -664,6 +666,12 @@ https://www.nicepng.com/maxp/u2q8o0q8a9a9y3o0/
 //     handleClick('easy');
 // }
 function handleClick (event){
+    if(event ===undefined)
+    {
+        console.log("the click works, but is completely not defined");
+        // return;
+    }
+
     //console.log(event);
 
 /*
