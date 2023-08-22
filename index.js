@@ -1,6 +1,6 @@
 //import {handleClick} from '/apps/minesweeper.js';
 
-let dev = true ||/**/ false; //in development skip artificial delayed timing
+let dev = /*true ||/**/ false; //in development skip artificial delayed timing
 let on = false; //doesnt start in an on state/
 let scripts=[];// if there is a script loaded, it only needs to be loaded once. (better in memory)
 let styles=[];//if a style is loaded, it doesn't need to be loaded again.
